@@ -1,4 +1,4 @@
-name: Java CI with Tests and Allure
+name: Task 2. XYZ Bank customers tests
 
 on:
   push:
@@ -27,6 +27,7 @@ jobs:
 
       - name: Run tests with Allure
         run: |
+          cd main
           mvn clean test
           mvn allure:report
 
