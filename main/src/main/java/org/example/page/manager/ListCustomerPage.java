@@ -22,8 +22,8 @@ public class ListCustomerPage extends BasePage {
     @FindBy(css = "table tr td:nth-child(1) a")
     private WebElement sortByNameButton;
 
-    private static final String deleteAtNameButton =
-            "//tbody/tr/td[1][text()='%s']/../td[5]/button[@ng-click='deleteCust(cust)']";
+    private static final String deleteCustomerButton =
+            "//tbody//td[text()='%s']/..//button[text()='Delete']";
 
     public ListCustomerPage(WebDriver webDriver) {
         super(webDriver);
@@ -71,15 +71,19 @@ public class ListCustomerPage extends BasePage {
         return firstNames.stream().min(Comparator.comparingDouble(name -> Math.abs(name.length() - averageLength))).get();
     }
 
-    @Step("Удаление клиента по имени")
-    public void deleteCustomerAtName(String firstName) {
-        String xpath = String.format(deleteAtNameButton, firstName);
+    /**
+     * Удаление клиента по имени, фамилии или post code
+     * @param value Имя или фамилии или post code клиента
+     */
+    @Step("Удаление клиента")
+    public void deleteCustomer(String value) {
+        String xpath = String.format(deleteCustomerButton, value);
         try {
             WebElement deleteButton = webDriver.findElement(By.xpath(xpath));
             scrollToElement(deleteButton);
             deleteButton.click();
         } catch (NoSuchElementException e) {
-            System.out.printf("Кнопка удаления у \"%s\" в списке не найдена. %s", firstName, e);
+            System.out.printf("Кнопка удаления у \"%s\" в списке не найдена. %s", value, e);
         }
     }
 }

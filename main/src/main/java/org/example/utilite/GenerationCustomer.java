@@ -2,6 +2,7 @@ package org.example.utilite;
 
 import java.util.Objects;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class GenerationCustomer {
 
@@ -27,18 +28,24 @@ public class GenerationCustomer {
         return postCode;
     }
 
+    /**
+     * Генерация рандомного PostCode
+     * @return Post Code состоящий из 10 цифр
+     */
     private String generatePostCode() {
-        int postCodeLength = 10;
         Random rnd = new Random();
-        StringBuilder postCode = new StringBuilder();
-
-        for (int i = 0; i < postCodeLength; i++) {
-            postCode.append(rnd.nextInt(10));
-        }
-
-        return postCode.toString();
+        return rnd.ints(10, 0, 10)
+                .mapToObj(String::valueOf)
+                .collect(Collectors.joining());
     }
 
+    /**
+     * Генерация рандомного имени на основе Post Code,
+     * преобразующее каждую пару цифр в соответсвующую букву латинского алфавита
+     * Прим. 0001020304 -> abcde
+     * @param postCode Post Code
+     * @return Имя состоящее из a-z символов
+     */
     private String generateFirstName(String postCode) {
         StringBuilder firstName = new StringBuilder();
 
@@ -48,10 +55,16 @@ public class GenerationCustomer {
             char letter = (char) ('a' + (number % 26));
             firstName.append(letter);
         }
-
         return firstName.toString();
     }
 
+    /**
+     * Генерация рандомной фамилии на основе Post Code,
+     * преобразующее каждую пару цифр в соответсвующую букву латинского алфавита в обратном порядке
+     * Прим. 0001020304 -> zyxwv
+     * @param postCode Post Code
+     * @return Фамилия состоящяя из a-z символов
+     */
     private String generateLastName(String postCode) {
         StringBuilder lastName = new StringBuilder();
 

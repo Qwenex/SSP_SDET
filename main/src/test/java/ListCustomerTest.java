@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+@Epic("Сайт XYZ Bank")
+@Feature("Manager login")
+@Story("Customer List")
 public class ListCustomerTest extends BaseTest {
 
     ListCustomerPage listCustomerPage;
@@ -16,9 +19,6 @@ public class ListCustomerTest extends BaseTest {
         listCustomerPage = new ListCustomerPage(webDriver);
     }
 
-    @Epic("Сайт XYZ Bank")
-    @Feature("Manager login")
-    @Story("Customer List")
     @Severity(SeverityLevel.MINOR)
     @Description("Получение сортированного списка имен клиентов в алфовитном порядке для текущего списка")
     @Test(description = "Получение отсортированного списка имен клиентов")
@@ -36,9 +36,6 @@ public class ListCustomerTest extends BaseTest {
         Assert.assertEquals(actualList, expectedList, "Отсортированный список отличается от ожидаемого");
     }
 
-    @Epic("Сайт XYZ Bank")
-    @Feature("Manager login")
-    @Story("Customer List")
     @Severity(SeverityLevel.NORMAL)
     @Description("Удаление клиента с именем, длина которого ближе всего к среднему арифметичскому")
     @Test(description = "Удаление клиента с именем средней длинны")
@@ -51,7 +48,7 @@ public class ListCustomerTest extends BaseTest {
         List<String> expectedList = new ArrayList<>(names);
         expectedList.remove(nameWithAverageLength);
 
-        listCustomerPage.deleteCustomerAtName(nameWithAverageLength);
+        listCustomerPage.deleteCustomer(nameWithAverageLength);
         List<String> actualList = listCustomerPage.getNames();
 
         Assert.assertFalse(names.isEmpty(), "Список имен в таблице пустой");
