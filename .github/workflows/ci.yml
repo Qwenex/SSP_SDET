@@ -57,21 +57,12 @@ jobs:
           mvn allure:report
         if: always()
 
-      - name: Prepare Allure Report
-        uses: simple-elf/allure-report-action@master
-        if: always()
-        with:
-          allure_results: main/target/allure-results
-          gh_pages: gh-pages
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
-        if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: ./allure-report
-          force_orphan: true
+          publish_dir: main/target/site/allure-maven-plugin
 
       - name: Stop API Service
         if: always()
