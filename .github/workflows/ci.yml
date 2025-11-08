@@ -36,11 +36,6 @@ jobs:
           cd api-service
           docker compose up --build -d
 
-      - name: Install netcat
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y netcat
-
       - name: Wait for API service
         run: |
           timeout 120s bash -c '
@@ -49,7 +44,7 @@ jobs:
             done
           '
           timeout 120s bash -c '
-            while ! nc -z localhost 8080; do 
+            until curl -s http://localhost:8080 > /dev/null; do
               sleep 10;
             done
           '
