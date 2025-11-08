@@ -62,18 +62,14 @@ jobs:
           cd main
           mvn clean test -Dsurefire.suiteXmlFiles=testng.xml
 
-      - name: Generate Allure report
-        run: |
-          cd main
-          mvn allure:report
-        if: always()
-
-      - name: Publish Allure Report
+      - name: Generate and Publish Allure Report
         uses: simple-elf/allure-report-action@master
         if: always()
         with:
           allure_results: main/target/allure-results
           gh_pages: gh-pages
+          allure_report: allure-report
+          keep_reports: 20
 
       - name: Stop API Service
         if: always()
