@@ -36,26 +36,17 @@ jobs:
           cd api-service
           docker compose up --build -d
 
-      - name: Wait for API service
-        run: |
-          timeout 120s bash -c '
-            until docker ps --filter "name=postgres" --format "{{.Status}}" | grep -q "healthy"; do
-              sleep 10;
-            done
-          '
-          timeout 120s bash -c '
-            until curl -s http://localhost:8080 > /dev/null; do
-              sleep 10;
-            done
-          '
-          sleep 20
-
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
           cache: 'maven'
+
+      - name: Run API tests
+        run: |
+          cd main
+          mvn clean test -Dsurefire.suiteXmlFiles=testng.xml
 
       - name: Generate Allure report
         run: |
