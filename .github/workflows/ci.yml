@@ -6,9 +6,6 @@ on:
   pull_request:
     branches: [ "master" ]
 
-permissions:
-  contents: write
-
 jobs:
   api-tests:
     name: Run API Tests
@@ -57,12 +54,21 @@ jobs:
           mvn allure:report
         if: always()
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Upload Allure Results
+        uses: actions/upload-artifact@v4
+        if: always()
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: main/target/site/allure-maven-plugin
+          name: allure-results
+          path: main/target/allure-results/
+          retention-days: 30
+
+      - name: Upload Allure Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: allure-report
+          path: main/target/site/allure-maven-plugin/
+          retention-days: 30
 
       - name: Stop API Service
         if: always()
