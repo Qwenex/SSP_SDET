@@ -1,0 +1,77 @@
+name: Task 3. API Tests
+
+on:
+  push:
+    branches: [ "**" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  api-tests:
+    name: Run API Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Test Code
+        uses: actions/checkout@v4
+
+      - name: Checkout API Service
+        uses: actions/checkout@v4
+        with:
+          repository: bondarenkokate73/simbirsoft_sdet_project
+          path: api-service
+
+      - name: Setup Docker
+        uses: docker/setup-buildx-action@v3
+
+      - name: Install Docker Compose
+        run: |
+          mkdir -p ~/.docker/cli-plugins   
+          curl -SL "https://github.com/docker/compose/releases/download/v2.40.3/docker-compose-linux-$(uname -m)" -o ~/.docker/cli-plugins/docker-compose
+          chmod +x ~/.docker/cli-plugins/docker-compose
+          docker compose version
+
+      - name: Start API Service with Docker Compose
+        run: |
+          cd api-service
+          docker compose up --build -d
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Run API tests
+        run: |
+          cd main
+          mvn clean test -Dsurefire.suiteXmlFiles=testng.xml
+
+      - name: Generate Allure report
+        run: |
+          cd main
+          mvn allure:report
+        if: always()
+
+      - name: Upload Allure Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: allure-results
+          path: main/target/allure-results/
+          retention-days: 30
+
+      - name: Upload Allure Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: allure-report
+          path: main/target/site/allure-maven-plugin/
+          retention-days: 30
+
+      - name: Stop API Service
+        if: always()
+        run: |
+          cd api-service
+          docker compose down
