@@ -12,8 +12,8 @@ SimbirSoft Practicum - SDET specialist
 
 ### Дополнительные задания:
 1) Allure отчет
-![img.png](img.png)
+![img_1.png](img_1.png)
 2) Паралельный запуск тестов\
-testng.xml (methods, 5 threads)
+testng.xml (classes, 5 threads)
 3) Запуск в системе CI/CD\
 gitHub Actions
