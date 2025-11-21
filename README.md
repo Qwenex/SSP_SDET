@@ -1,7 +1,38 @@
 # SSP_SDET
 SimbirSoft Practicum - SDET specialist
 
-* Master - empty default branch
-* Task-1 - Тестирование страницы [FormFields](https://practice-automation.com/form-fields/)
-* Task-2 - Тестирование [XYZ Bank](https://www.globalsqa.com/angularJs-protractor/BankingProject/#/manager)
-* Task-3 - Тестирование [API-сервиса](https://github.com/bondarenkokate73/simbirsoft_sdet_project)
+---
+
+## <u> Task 4. Функциональное тестирование: Тест-дизайн </u>
+
+## Задача T1. Написание тест-кейсов. 
+
+### Условие задачи:
+* Реализовано REST API **GET**\
+/products/{productId}/status?authToken=&recalculate=&owner=&region=
+
+* Функция возвращает статус продукта, в качестве входных данных функция принимает следующие параметры:
+
+<table>
+  <thead>
+    <tr><th>recalculate</th><th>owner</th><th>region</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>true</td><td>Создатель</td><td>Северо-Запад</td></tr>
+    <tr><td>false</td><td>Пользователь</td><td>Сибирь</td></tr>
+    <tr><td>null</td><td>null</td><td>Поволжье</td></tr>
+  </tbody>
+</table>
+
+* Параметры необязательные (т.е. могут отсутствовать в запросе), параметры не коррелируют между собой.
+* authToken - параметр авторизации и аутентификации, набор из 16 символов, включающие цифры и буквы.
+* Функция возвращает ответ в json формате с http-кодом 200
+{ "productStatus": 1}\
+Допустимые значения: 1- Готов, 0 - Не готов
+* В случае если продукт не найден возвращается ответ с кодом 404
+* При неверном или отсутствующем токене - ответ с кодом 401
+* В случае ошибки http-код 500 с телом в формате json {"errorMessage":}
+### Требуется:
+* Составить план тестирования, описать проверяемые тест кейсы.
+
+
