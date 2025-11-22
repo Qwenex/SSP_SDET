@@ -23,9 +23,9 @@
 * **Шаги для воспроизведения:**
   1. Подготовить к отправке PUT запрос на https://cloud-api.yandex.net:443/v1/disk/resources
   2. Получить валидный OAuth-токен - [valid_token]
-  3. Установите заголовки: Content-Type: application/json, Authorization: [valid_token]
-  4. Добавьте параметр: path=[путь_к_новой_папке]
-  5. Отправьте запрос
+  3. Установить заголовки: Content-Type: application/json, Authorization: [valid_token]
+  4. Добавить параметр: path=[путь_к_новой_папке]
+  5. Отправить запрос
 
 * **Ожидаемый результат:**\
 HTTP статус ответа: 200 OK
@@ -38,40 +38,6 @@ Minor
 Low
 * **Приложения:**\
         1. Скриншот: ![scrBugReport4.png](..%2Fscreenshots%2Ft2%2FbugReportsAPI%2FscrBugReport4.png)
-
----
-### Bug Report №4
-* **Заголовок:**\
-Неправильный порядок полей в теле ошибки
-
-* **Описание:**\
-Согласно ТЗ, при ошибках (не 200-ые кода) тело ответа должно иметь порядок полей: message, description, error.
-Фактически сервер возвращает поля в порядке: error, description, message.
-
-* **Среда:**
-  * API: Яндекс Диск REST API
-  * Клиент: Postman
-  * Дата тестирования: 21.11.2025
-
-* **Шаги для воспроизведения:**
-    1. Подготовить к отправке PUT запрос на https://cloud-api.yandex.net:443/v1/disk/resources
-    2. Получить валидный OAuth-токен - [valid_token]
-    3. Установите заголовки: Content-Type: application/json, Authorization: [valid_token]
-    4. Отправьте запрос
-
-* **Ожидаемый результат:**\
-Ошибка с кодом 400 BAD REQUEST \
-Тело ответа: {"message": "string", "description": "string", "error": "string"}
-* **Фактический результат:**\
-Ошибка с кодом 400 BAD REQUEST \
-Тело ответа: {"error": "string", "description": "string", "message": "string"}
-
-* **Серьезность:**\
-Trivial
-* **Приоритет:**\
-Low
-* **Приложения:**\
-        1. Скриншот: ![scrBugReport5.png](..%2Fscreenshots%2Ft2%2FbugReportsAPI%2FscrBugReport5.png)
 
 ---
 ### Bug Report №5
@@ -92,10 +58,10 @@ Low
 * **Шаги для воспроизведения:**\
     1. Подготовить к отправке PUT запрос на https://cloud-api.yandex.net:443/v1/disk/resources
     2. Получить валидный OAuth-токен - [valid_token]
-    3. Установите заголовки: Content-Type: application/json, Authorization: [valid_token]
-    4. Добавьте параметр: path=[путь_к_новой_папке]
-    5. Добавьте параметр: fields=[заведомо_несуществующий_параметр]
-    6. Отправьте запрос
+    3. Установить заголовки: Content-Type: application/json, Authorization: [valid_token]
+    4. Добавить параметр: path=[путь_к_новой_папке]
+    5. Добавить параметр: fields=[заведомо_несуществующий_параметр]
+    6. Отправить запрос
 
 * **Ожидаемый результат:**\
 HTTP статус 400 Bad Request с сообщением о некорректных данных
@@ -126,9 +92,9 @@ Medium
 * **Шаги для воспроизведения:**\
     1. Подготовить к отправке PUT запрос на https://cloud-api.yandex.net:443/v1/disk/resources
     2. Получить валидный OAuth-токен - [valid_token]
-    3. Установите заголовки: Content-Type: application/json, Authorization: [valid_token]
-    4. Добавьте параметр: path=[путь_к_уже_существующей_папке]
-    5. Отправьте запрос
+    3. Установить заголовки: Content-Type: application/json, Authorization: [valid_token]
+    4. Добавить параметр: path=[путь_к_уже_существующей_папке]
+    5. Отправить запрос
 
 * **Ожидаемый результат:**\
 HTTP статус 400 Bad Request
