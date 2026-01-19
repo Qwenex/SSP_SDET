@@ -15,9 +15,9 @@
 
         <log4j.version>2.7</log4j.version>
         <testNG.version>7.10.2</testNG.version>
-        <selenium.version>4.36.0</selenium.version>
+        <selenium.version>4.37.0</selenium.version>
         <allure-testng.version>2.30.0</allure-testng.version>
-        <aspectj.version>1.9.22</aspectj.version>
+        <aspectj.version>1.9.25.1</aspectj.version>
         <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
     </properties>
 
@@ -54,6 +54,12 @@
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
             <version>${allure-testng.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 
