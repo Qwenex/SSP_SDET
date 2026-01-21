@@ -54,7 +54,7 @@ public class CalcTest {
     @DataProvider(name = "multiplicationDataProvider")
     public static Object[][] multiplicationDataProvider() {
         return new Object[][]{
-                {2.0, 2.0, 4.0},
+                {2.0, 2.0, 5.0},
                 {-2.0, 2.0, -4.0},
                 {-2.0, -2.0, 4.0},
                 {0.0, 0.0, 0.0},
