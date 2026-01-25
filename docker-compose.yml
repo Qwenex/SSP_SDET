@@ -14,7 +14,8 @@ services:
       context: .
       dockerfile: Dockerfile
     network_mode: bridge
-
+    volumes:
+     - "./target:/app/target"
     command: "mvn -f /app/pom.xml clean test"
 
   selenoid:
