@@ -16,7 +16,7 @@ services:
     network_mode: bridge
     volumes:
      - "./target:/app/target"
-    command: "mvn -f /app/pom.xml clean test"
+    command: "mvn -f /app/pom.xml test"
 
   selenoid:
     image: "aerokube/selenoid"
@@ -26,8 +26,6 @@ services:
     volumes:
       - "./config/browsers.json:/etc/selenoid/browsers.json"
       - "/var/run/docker.sock:/var/run/docker.sock"
-    environment:
-      - OVERRIDE_VIDEO_OUTPUT_DIR=/opt/selenium/video
     command: ["-conf", "/etc/selenoid/browsers.json", "-video-output-dir", "/opt/selenoid/video"]
     network_mode: bridge
 
