@@ -30,7 +30,7 @@
 Html формат в тело письма для отправки динамического отчета после каждого прогона
 ![Screenshot_9.png](../screenshots/settings4Jenkins/Screenshot_9.png)
 Тригер на always
-![Screenshot_10.png](../screenshots/settings4Jenkins/Screenshot_10.png)
-Системные настройки для отправки сообщений
+![Screenshot_10.png](../screenshots/settings4Jenkins/Screenshot_10.png) \
+Системные настройки для отправки сообщений \
 ![Screenshot_11.png](../screenshots/settings4Jenkins/Screenshot_11.png)
 ![Screenshot_12.png](../screenshots/settings4Jenkins/Screenshot_12.png)
