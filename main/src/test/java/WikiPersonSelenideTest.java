@@ -42,7 +42,7 @@ public class WikiPersonSelenideTest {
                 put("manual", "true");
             }});
             put("enableVNC", false);
-            put("enableVideo", true);
+            put("enableVideo", false);
         }});
         options.addArguments("--start-maximized");
         RemoteWebDriver driver = new RemoteWebDriver(new URL("http://selenoid:4444/wd/hub"), options);
