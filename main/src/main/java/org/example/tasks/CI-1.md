@@ -6,6 +6,6 @@
 
 ## Настройки
 Прописывание git-репозитория
-![Screenshot_1.png](../screenshots/settings4Jenkins/Screenshot_1.png)
-Шаги сборки
+![Screenshot_1.png](../screenshots/settings4Jenkins/Screenshot_1.png) \
+Шаги сборки \
 ![Screenshot_3.png](../screenshots/settings4Jenkins/Screenshot_3.png)
