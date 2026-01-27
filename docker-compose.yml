@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+
+  app:
+    container_name: task6_cont
+    depends_on:
+      - selenoid
+    links:
+      - selenoid
+    ports:
+      - "8081:8081"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    network_mode: bridge
+    volumes:
+     - "./target:/app/target"
+    command: "mvn -f /app/pom.xml test"
+
+  selenoid:
+    image: "aerokube/selenoid"
+    container_name: selenoid_cont
+    ports:
+      - "4444:4444"
+    volumes:
+      - "./config/browsers.json:/etc/selenoid/browsers.json"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    command: ["-conf", "/etc/selenoid/browsers.json", "-video-output-dir", "/opt/selenoid/video"]
+    network_mode: bridge
+
+  selenoid-ui:
+    image: "aerokube/selenoid-ui"
+    container_name: selenoid_ui_cont
+    network_mode: bridge
+    links:
+      - selenoid
+    ports:
+      - "8080:8080"
+    command: ["--selenoid-uri", "http://selenoid:4444"]
