@@ -1,3 +1,4 @@
+import io.qameta.allure.*;
 import org.example.pages.practice.bankingApp.BankManagerLoginPage;
 import org.example.pages.practice.bankingApp.CustomerLoginPage;
 import org.example.pages.practice.bankingApp.HomePage;
@@ -11,6 +12,7 @@ import org.testng.asserts.SoftAssert;
 import java.util.Comparator;
 import java.util.Random;
 
+@Epic("Way2Automation Banking App")
 public class BankingAppTest extends BaseTest {
 
     public HomePage homePage;
@@ -23,7 +25,11 @@ public class BankingAppTest extends BaseTest {
     }
 
     // 5.1
-    @Test
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Страница \"Sample Form\"")
+    @Story("Регистрация клиента")
+    @Description("Валидная регистрация клиента с вводом в поле \"About Yourself\" самое длинное слово из \"Hobbies\"")
+    @Test(description = "Валидная регистрация клиента")
     public void validRegisterInSampleFormTest() {
         SampleFormPage sampleFormPage = homePage.moveToSampleFormPage();
         String hobbyWithMaxLength = sampleFormPage.getHobbiesList()
@@ -51,7 +57,11 @@ public class BankingAppTest extends BaseTest {
     }
 
     // 5.2.1
-    @Test(dataProvider = "customerForTest")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Страница \"Bank Manager Login\"")
+    @Story("Добавление клиента")
+    @Description("Валидное добавление нового клиента")
+    @Test(description = "Валидное добавление клиента", dataProvider = "customerForTest")
     public void addCustomerInBankManagerLoginTest(String firstName, String lastName, String postCode) {
         BankManagerLoginPage bankManagerLoginPage = homePage.moveToBankManagerLoginPage();
 
@@ -63,7 +73,11 @@ public class BankingAppTest extends BaseTest {
     }
 
     // 5.2.2
-    @Test(dataProvider = "customerForTest")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Страница \"Bank Manager Login\"")
+    @Story("Открытие аккаунта клиента")
+    @Description("Валидное открытие аккаунта клиента")
+    @Test(description = "Валидное открытие аккаунта клиента", dataProvider = "customerForTest")
     public void openCustomerInBankManagerLoginTest(String firstName, String lastName, String postCode) {
         BankManagerLoginPage bankManagerLoginPage = homePage.moveToBankManagerLoginPage();
         bankManagerLoginPage.addCustomer(firstName, lastName, postCode);
@@ -77,7 +91,11 @@ public class BankingAppTest extends BaseTest {
     }
 
     // 5.3
-    @Test(dataProvider = "customerForTest")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Страница \"Customer Login\"")
+    @Story("Набор операций со счетом клиента")
+    @Description("Набор операций со счетом клиента: Пополнение, снятие, проверка баланса, очистка транзакций")
+    @Test(description = "Набор операций со счетом клиента", dataProvider = "customerForTest")
     public void customerTest(String firstName, String lastName, String postCode) {
         String customer = String.format("%s %s", firstName, lastName);
 
@@ -168,7 +186,11 @@ public class BankingAppTest extends BaseTest {
     }
 
     // 5.4
-    @Test
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Страница \"Bank Manager Login\"")
+    @Story("Удаление клиента")
+    @Description("Удаление клиента и проверка в таблице \"Customers\"")
+    @Test(description = "Удаление клиента", dataProvider = "customerForTest")
     public void deleteCustomerForFirstNameTest() {
         String customerFirstName = "customerForDelete";
         BankManagerLoginPage bankManagerLoginPage = homePage.moveToBankManagerLoginPage();

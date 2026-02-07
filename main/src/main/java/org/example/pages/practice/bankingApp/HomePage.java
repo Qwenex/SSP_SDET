@@ -1,5 +1,6 @@
 package org.example.pages.practice.bankingApp;
 
+import io.qameta.allure.Step;
 import org.example.pages.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -25,29 +26,34 @@ public class HomePage extends BasePage {
         super(webDriver);
     }
 
+    @Step("открытие главной страницы \"Way2Automation Banking App\"")
     public HomePage openPage() {
         webDriver.get(URL);
         return this;
     }
 
+    @Step("Переход во вкладку \"Sample Form\"")
     public SampleFormPage moveToSampleFormPage() {
         waitDisplayed(sampleFormButton);
         sampleFormButton.click();
         return new SampleFormPage(webDriver);
     }
 
+    @Step("Переход во вкладку \"Customer Login\"")
     public CustomerLoginPage moveToCustomerLoginPage() {
         waitDisplayed(customerLoginButton);
         customerLoginButton.click();
         return new CustomerLoginPage(webDriver);
     }
 
+    @Step("Переход во вкладку \"Bank Manager Login\"")
     public BankManagerLoginPage moveToBankManagerLoginPage() {
         waitDisplayed(bankManagerLoginButton);
         bankManagerLoginButton.click();
         return new BankManagerLoginPage(webDriver);
     }
 
+    @Step("Переход на главную страницу \"Way2Automation Banking App\"")
     public HomePage moveToHomePage() {
         waitDisplayed(homeButton);
         homeButton.click();

@@ -1,5 +1,6 @@
 package org.example.pages.way2automation;
 
+import io.qameta.allure.Step;
 import org.example.pages.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,6 +17,13 @@ public class LifetimeMembershipClubPage extends BasePage {
         super(webDriver);
     }
 
+    @Step("Открытие страницы \"Lifetime Membership Club\"")
+    public LifetimeMembershipClubPage openPage() {
+        webDriver.get(URL);
+        return this;
+    }
+
+    @Step("Получение заголовка страницы")
     public String getTitle() {
         return title.getText();
     }

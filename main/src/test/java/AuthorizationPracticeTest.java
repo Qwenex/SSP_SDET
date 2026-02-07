@@ -1,8 +1,11 @@
+import io.qameta.allure.*;
 import org.example.pages.practice.registration.AuthorizationPracticePage;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+@Epic("Practice website")
+@Feature("Registration")
 public class AuthorizationPracticeTest extends BaseTest {
 
    public AuthorizationPracticePage authorizationPage;
@@ -14,7 +17,10 @@ public class AuthorizationPracticeTest extends BaseTest {
     }
 
     // 4.1
-    @Test
+    @Severity(SeverityLevel.BLOCKER)
+    @Story("Отображение элементов страницы")
+    @Description("Проверка отображения полей \"Username\" и \"Password\"")
+    @Test(description = "Проверка отображения полей ввода")
     public void verifyEnterFields() {
         Assert.assertTrue(authorizationPage.isUsernameFieldDisplayed(),
                 "Поле \"Username\" должно отображаться");
@@ -24,11 +30,13 @@ public class AuthorizationPracticeTest extends BaseTest {
 
         Assert.assertFalse(authorizationPage.isActiveLoginButton(),
                 "Кнопка \"Login\" в данный момент должна быть неактивна");
-
     }
 
     // 4.2 (Примечание: Тест падает, так как на сайте кнопка Login неактивна при незаполненном поле usernameDescription)
-    //@Test
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("Авторизация пользователя")
+    @Description("Валидная авторизация заполнив поля \"Username\" и \"Password\"")
+    @Test(description = "Валидная авторизация заполнив 2 поля")
     public void validAuthTest() {
         String username = "angular";
         String password = "password";
@@ -40,7 +48,10 @@ public class AuthorizationPracticeTest extends BaseTest {
                 "Сообщение об успешной авторизации отличается от ожидаемого");
     }
 
-    @Test
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("Авторизация пользователя")
+    @Description("Валидная авторизация заполнив поля \"Username\", \"Password\" и \"Username Description\"")
+    @Test(description = "Валидная авторизация заполнив 3 поля")
     public void validImprovedAuthTest() {
         String username = "angular";
         String password = "password";
@@ -54,7 +65,10 @@ public class AuthorizationPracticeTest extends BaseTest {
     }
 
     //4.3 (Примечание: Тест падает, так как на сайте кнопка Login неактивна при незаполненном поле usernameDescription)
-    //@Test
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("Авторизация пользователя")
+    @Description("Невалидная авторизация заполнив поля \"Username\" и \"Password\"")
+    @Test(description = "Невалидная авторизация заполнив 2 поля")
     public void invalidAuthTest() {
         String username = "Not_angular";
         String password = "password";
@@ -66,7 +80,10 @@ public class AuthorizationPracticeTest extends BaseTest {
                 "Сообщение об неуспешной авторизации отличается от ожидаемого");
     }
 
-    @Test
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("Авторизация пользователя")
+    @Description("Невалидная авторизация заполнив поля \"Username\", \"Password\" и \"Username Description\"")
+    @Test(description = "Невалидная авторизация заполнив 3 поля")
     public void invalidImprovedAuthTest() {
         String username = "Not_angular";
         String password = "password";
@@ -80,7 +97,10 @@ public class AuthorizationPracticeTest extends BaseTest {
     }
 
     // 4.4
-    @Test
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("Разлогирование аккаунта")
+    @Description("Проверка успешного разлогирования с помощью кнопки \"Logout\"")
+    @Test(description = "Успешное разлогирование")
     public void logoutTest() {
         String username = "angular";
         String password = "password";
@@ -98,5 +118,4 @@ public class AuthorizationPracticeTest extends BaseTest {
         Assert.assertFalse(authorizationPage.isUsernameDescriptionFieldDisplayed(),
                 "Поле \"Username Description\" должно отображаться");
     }
-
 }

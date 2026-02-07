@@ -1,5 +1,6 @@
 package org.example.pages.practice.bankingApp;
 
+import io.qameta.allure.Step;
 import org.example.pages.BasePage;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -69,11 +70,13 @@ public class CustomerLoginPage extends BasePage {
         super(webDriver);
     }
 
+    @Step("Открытие страницы \"Customer Login\"")
     public CustomerLoginPage openPage() {
         webDriver.get(URL);
         return this;
     }
 
+    @Step("Выбор клиента из списка \"Your Name\"")
     public CustomerLoginPage selectCustomer(String customer) {
         waitDisplayed(yourNameComboBox);
         Select selectCustomer = new Select(yourNameComboBox);
@@ -81,6 +84,7 @@ public class CustomerLoginPage extends BasePage {
         return this;
     }
 
+    @Step("Нажатие на кнопку \"Login\"")
     public String loginButtonClick() {
         waitDisplayed(loginButton);
         loginButton.click();
@@ -89,6 +93,7 @@ public class CustomerLoginPage extends BasePage {
         return customerWelcomeMessage.getText();
     }
 
+    @Step("Ввод средств через \"Deposit\"")
     public String enterDeposit(Integer amount) {
         waitDisplayed(headerDepositButton);
         headerDepositButton.click();
@@ -109,6 +114,7 @@ public class CustomerLoginPage extends BasePage {
         Примечание: на сайте я не нашел кнопки "Withdrawn",
          допускается что имелось в виду "Withdrawl" в меню и кнопка подтверждения "Withdraw"
      */
+    @Step("Вывод средств через \"Withdrawn\"")
     public String takeWithdrawn(Integer amount) {
         waitDisplayed(headerWithdrawnButton);
         headerWithdrawnButton.click();
@@ -127,6 +133,7 @@ public class CustomerLoginPage extends BasePage {
     }
 
     // без Thread.sleep - 5.3.1 и 5.3.3 будут flaky-тестами
+    @Step("Переход на вкладку \"Transactions\"")
     public CustomerLoginPage moveToTransactions() {
         try {
             Thread.sleep(1000);
@@ -139,12 +146,14 @@ public class CustomerLoginPage extends BasePage {
         return this;
     }
 
+    @Step("Переход из вкладки \"Transactions\" в главное меню аккаунта клиента")
     public CustomerLoginPage backFromTransactions() {
         waitDisplayed(transactionsBackButton);
         transactionsBackButton.click();
         return this;
     }
 
+    @Step("Проверка на существование записи о внесении средств в таблице \"Transactions\"")
     public boolean isAmountInCreditList(Integer amount) {
         moveToTransactions();
         boolean b = amountCreditList.stream().anyMatch(webElement ->
@@ -153,6 +162,7 @@ public class CustomerLoginPage extends BasePage {
         return b;
     }
 
+    @Step("Проверка на существование записи о снятии средств в таблице \"Transactions\"")
     public boolean isAmountInDebitList(Integer amount) {
         moveToTransactions();
         boolean b = amountDebitList.stream().anyMatch(webElement ->
@@ -161,11 +171,13 @@ public class CustomerLoginPage extends BasePage {
         return b;
     }
 
+    @Step("Получение баланса клиента")
     public Integer getCustomerBalance() {
         waitDisplayed(customerBalance);
         return Integer.parseInt(customerBalance.getText());
     }
 
+    @Step("Получение баланса клиента из таблицы \"Transactions\"")
     public Integer getCustomerBalanceFromTransactions() {
         moveToTransactions();
         Integer creditSum = amountCreditList.stream()
@@ -178,17 +190,14 @@ public class CustomerLoginPage extends BasePage {
         return balance;
     }
 
+    @Step("Получение количества транзакций")
     public Integer getCountTransactions() {
         return amountCreditList.size() + amountDebitList.size();
     }
 
+    @Step("Удаление всех транзакций и обнуление счета")
     public void resetTransactions() {
         waitDisplayed(transactionsResetButton);
         transactionsResetButton.click();
     }
-
-    public void refresh() {
-        moveToTransactions().backFromTransactions();
-    }
-
 }
