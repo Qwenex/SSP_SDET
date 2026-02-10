@@ -3,14 +3,14 @@ SimbirSoft Practicum - SDET specialist
 ## Task 7 UI-тестирование
 
 ---
-## Задание U-1
+## Задание U-1. Тест-кейсы
 1.	Получить от ментора один или более тест-кейсов для автоматизации.
 2.	Создать собственный проект автотестов для way2automation с правильной структурой,\
 использованием TestNG, паттернов (POM, Factory).
 
 * Тест-кейсы:
 
-### 1. Главная страница - https://www.way2automation.com/
+### 1. [Главная страница](https://www.way2automation.com/)
 
 #### 1.1 Проверка открытия страницы
 - Все основные элементы отображаются:
@@ -43,10 +43,10 @@ SimbirSoft Practicum - SDET specialist
 
 ### 3. Проверка перехода по меню навигации на другие страницы
 **Пример:** перейти на страницу All courses → Lifetime membership.
-- Проверить, что произошёл переход на https://www.way2automation.com/lifetime-membership-club/
+- Проверить, что произошёл переход на [новую вкладку](https://www.way2automation.com/lifetime-membership-club/)
 - В заголовке содержится текст: **LIFETIME MEMBERSHIP CLUB**
 
-### 4. Страница авторизации: https://www.way2automation.com/angularjs-protractor/registeration/#/login
+### 4. [Страница авторизации:](https://www.way2automation.com/angularjs-protractor/registeration/#/login)
 #### 4.1 Проверка полей ввода
 - Поля "Username" и "Password" отображаются
 - Кнопка Login задизейблена при незаполненных полях
@@ -65,7 +65,7 @@ SimbirSoft Practicum - SDET specialist
 - Нажать на кнопку Logout
 - **Ожидаемый результат:** отображаются поля для входа
 
-### 5. Банковское приложение: https://www.way2automation.com/angularjs-protractor/banking/#/login
+### 5. [Банковское приложение:](https://www.way2automation.com/angularjs-protractor/banking/#/login)
 #### 5.1 Перейти в интерфейс Sample Form
 - Ввести корректные данные для регистрации
 - В пункте Hobbies выбрать Sports
@@ -159,10 +159,15 @@ SimbirSoft Practicum - SDET specialist
 - Проверить, что в таблице он отсутствует
 ---
 
-## Задание U-2
-
+## Задание U-2. Allure
 1.	Добавить в проект отчеты Allure.rr
 2.	Добавить аннотацию Severity к каждому тест кейсу
 3.	Добавить аннотацию Step к каждому публичному методу всех Page Object
 4.	Добавить аннотации Epic, Feature, Story
 ---
+
+## Задание U-3. DataProvider
+1.	Сделать новый test suite
+2.	Разработать универсальный тест кейс, использующий разные данные для авторизации (в том числе и некорректные).
+[Ссылка на форму логина](https://www.way2automation.com/angularjs-protractor/registeration/#/login)
+3.	В качестве источника разных параметров использовать возможность TestNG DataProvider

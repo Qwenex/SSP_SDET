@@ -70,7 +70,7 @@ public class AuthorizationPracticePage extends BasePage {
         return loginButton.isEnabled();
     }
 
-    @Step("Авторизация с заполнением поля \"Username Description\" и получение сообщения об результате операции")
+    @Step("Авторизация и получение сообщения об результате операции")
     public String auth(String username, String password, String usernameDescription) {
         waitDisplayed(usernameField);
         usernameField.sendKeys(username);
@@ -92,7 +92,7 @@ public class AuthorizationPracticePage extends BasePage {
                 waitDisplayed(errorLoggedInMassage);
                 return errorLoggedInMassage.getText();
             } catch (Exception e2) {
-               return "Сообщение не появилось";
+               return "";
             }
         }
     }

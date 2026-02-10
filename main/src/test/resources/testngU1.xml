@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="U1" parallel="classes" thread-count="3">
+
+    <test name="U1 tests">
+        <classes>
+            <class name="AuthorizationPracticeTest"/>
+            <class name="BankingAppTest"/>
+            <class name="Way2AutomationTest"/>
+        </classes>
+    </test>
+
+</suite>
