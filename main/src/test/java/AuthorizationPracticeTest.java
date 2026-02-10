@@ -1,3 +1,4 @@
+import base.BaseTest;
 import io.qameta.allure.*;
 import org.example.pages.practice.registration.AuthorizationPracticePage;
 import org.testng.Assert;
@@ -20,7 +21,7 @@ public class AuthorizationPracticeTest extends BaseTest {
     @DataProvider(name = "validUsers")
     public static Object[][] validUsersDataProvider() {
         return new Object[][]{
-                //{"angular", "password", ""},
+                {"angular", "password", ""},
                 {"angular", "password", "I am angular!"}
         };
     }
@@ -28,7 +29,7 @@ public class AuthorizationPracticeTest extends BaseTest {
     @DataProvider(name = "notValidUsers")
     public static Object[][] notValidUsersDataProvider() {
         return new Object[][]{
-                //{"Not_angular", "password", ""},
+                {"Not_angular", "password", ""},
                 {"Not_angular", "password", "Ok, iʼm not angular"}
         };
     }
@@ -82,7 +83,10 @@ public class AuthorizationPracticeTest extends BaseTest {
     @Description("Проверка успешного разлогирования с помощью кнопки \"Logout\"")
     @Test(description = "Успешное разлогирование", dataProvider = "validUsers")
     public void logoutTest(String username, String password, String usernameDescription) {
-        authorizationPage.auth(username, password, usernameDescription);
+        String actualMassage = authorizationPage.auth(username, password, usernameDescription);
+        String expectedMassage = "You're logged in!!";
+        Assert.assertEquals(actualMassage, expectedMassage,
+                "Сообщение об успешной авторизации отличается от ожидаемого");
         authorizationPage.logout();
 
         Assert.assertTrue(authorizationPage.isUsernameFieldDisplayed(),
