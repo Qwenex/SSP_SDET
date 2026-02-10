@@ -1,3 +1,4 @@
+import base.BaseTest;
 import io.qameta.allure.*;
 import org.example.pages.practice.registration.AuthorizationPracticePage;
 import org.testng.Assert;

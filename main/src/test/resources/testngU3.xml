@@ -1,6 +1,9 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="U3" parallel="classes" thread-count="1">
 
+    <listeners>
+        <listener class-name="utils.testngListener"/>
+    </listeners>
     <test name="U3 tests">
         <classes>
             <class name="AuthorizationPracticeUniversalTest"/>
