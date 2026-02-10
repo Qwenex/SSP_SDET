@@ -12,7 +12,8 @@ public abstract class BaseTest {
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments(
-                "--window-size=1920,1080"
+                "----start-maximized",
+                "--incognito"
         );
         webDriver = new ChromeDriver(options);
     }

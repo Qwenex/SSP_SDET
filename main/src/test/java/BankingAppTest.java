@@ -63,9 +63,11 @@ public class BankingAppTest extends BaseTest {
     @Description("Валидное добавление нового клиента")
     @Test(description = "Валидное добавление клиента", dataProvider = "customerForTest")
     public void addCustomerInBankManagerLoginTest(String firstName, String lastName, String postCode) {
-        BankManagerLoginPage bankManagerLoginPage = homePage.moveToBankManagerLoginPage();
 
-        String actualMessage = bankManagerLoginPage.addCustomer(firstName, lastName, postCode);
+        String actualMessage = homePage
+                .moveToBankManagerLoginPage()
+                .addCustomer(firstName, lastName, postCode)
+                .getTextFromAlert();
         String expectedMessage = "Customer added successfully";
 
         Assert.assertTrue(actualMessage.contains(expectedMessage),
@@ -79,11 +81,12 @@ public class BankingAppTest extends BaseTest {
     @Description("Валидное открытие аккаунта клиента")
     @Test(description = "Валидное открытие аккаунта клиента", dataProvider = "customerForTest")
     public void openCustomerInBankManagerLoginTest(String firstName, String lastName, String postCode) {
-        BankManagerLoginPage bankManagerLoginPage = homePage.moveToBankManagerLoginPage();
-        bankManagerLoginPage.addCustomer(firstName, lastName, postCode);
+        String actualMessage = homePage
+                .moveToBankManagerLoginPage()
+                .addCustomer(firstName, lastName, postCode)
+                .openAccount(String.format("%s %s", firstName, lastName), "Dollar")
+                .getTextFromAlert();
 
-        String actualMessage = bankManagerLoginPage.openAccount(
-                String.format("%s %s", firstName, lastName), "Dollar");
         String expectedMessage = "Account created successfully";
 
         Assert.assertTrue(actualMessage.contains(expectedMessage),
@@ -99,12 +102,13 @@ public class BankingAppTest extends BaseTest {
     public void customerTest(String firstName, String lastName, String postCode) {
         String customer = String.format("%s %s", firstName, lastName);
 
-        BankManagerLoginPage bankManagerLoginPage = homePage.moveToBankManagerLoginPage();
-        bankManagerLoginPage.addCustomer(firstName, lastName, postCode);
-        bankManagerLoginPage.openAccount(customer, "Dollar");
-        homePage.moveToHomePage();
+        homePage.moveToBankManagerLoginPage()
+                .addCustomer(firstName, lastName, postCode)
+                .openAccount(customer, "Dollar");
+        CustomerLoginPage customerLoginPage = homePage
+                .moveToHomePage()
+                .moveToCustomerLoginPage();
 
-        CustomerLoginPage customerLoginPage = homePage.moveToCustomerLoginPage();
         String actualMessage = customerLoginPage
                 .selectCustomer(customer)
                 .loginButtonClick();
@@ -190,18 +194,18 @@ public class BankingAppTest extends BaseTest {
     @Feature("Страница \"Bank Manager Login\"")
     @Story("Удаление клиента")
     @Description("Удаление клиента и проверка в таблице \"Customers\"")
-    @Test(description = "Удаление клиента", dataProvider = "customerForTest")
+    @Test(description = "Удаление клиента")
     public void deleteCustomerForFirstNameTest() {
         String customerFirstName = "customerForDelete";
-        BankManagerLoginPage bankManagerLoginPage = homePage.moveToBankManagerLoginPage();
-        bankManagerLoginPage.addCustomer(customerFirstName,"lastName","A1111");
+        BankManagerLoginPage bankManagerLoginPage = homePage
+                .moveToBankManagerLoginPage()
+                .addCustomer(customerFirstName,"lastName","A1111")
+                .moveToCustomersList();
 
-        bankManagerLoginPage.moveToCustomersList();
         Assert.assertTrue(bankManagerLoginPage.isCustomerExist(customerFirstName),
                 String.format("Клиент с именем \"%s\" должен быть найден в таблице", customerFirstName));
 
-        bankManagerLoginPage.deleteCustomer(customerFirstName);
-        bankManagerLoginPage.clearSearch();
+        bankManagerLoginPage.deleteCustomer(customerFirstName).clearSearch();
         Assert.assertFalse(bankManagerLoginPage.isCustomerExist(customerFirstName),
                 String.format("Клиент с именем \"%s\" не должен быть найден в таблице", customerFirstName));
     }

@@ -65,7 +65,7 @@ public class BankManagerLoginPage extends BasePage {
     }
 
     @Step("Добавление клиента")
-    public String addCustomer(String firstName, String lastName, String postCode) {
+    public BankManagerLoginPage addCustomer(String firstName, String lastName, String postCode) {
         waitDisplayed(headerAddCustomerButton);
         headerAddCustomerButton.click();
 
@@ -75,11 +75,11 @@ public class BankManagerLoginPage extends BasePage {
         postCodeField.sendKeys(postCode);
         addCustomerButton.click();
 
-        return getTextFromAlert();
+        return this;
     }
 
     @Step("Открытие аккаунта клиента")
-    public String openAccount(String customer, String currency) {
+    public BankManagerLoginPage openAccount(String customer, String currency) {
         waitDisplayed(headerOpenAccountButton);
         headerOpenAccountButton.click();
 
@@ -91,7 +91,7 @@ public class BankManagerLoginPage extends BasePage {
         selectCurrency.selectByValue(currency);
         processButton.click();
 
-        return getTextFromAlert();
+        return this;
     }
 
     @Step("Переход на вкладку \"Customers\"")
@@ -119,7 +119,7 @@ public class BankManagerLoginPage extends BasePage {
      * @param value Имя или фамилии или post code клиента
      */
     @Step("Удаление клиента из таблицы \"Customers\"")
-    public void deleteCustomer(String value) {
+    public BankManagerLoginPage deleteCustomer(String value) {
         String xpath = String.format(dynamicDeleteCustomerButton, value);
         try {
             WebElement deleteButton = webDriver.findElement(By.xpath(xpath));
@@ -128,6 +128,7 @@ public class BankManagerLoginPage extends BasePage {
         } catch (NoSuchElementException e) {
             System.out.printf("Кнопка удаления у \"%s\" в списке не найдена. %s", value, e);
         }
+        return this;
     }
 
 }
