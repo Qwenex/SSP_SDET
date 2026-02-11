@@ -180,15 +180,15 @@ public class BankingAppTest extends BaseTest {
 
         // 5.3.7
         Integer expectedTransactions = 3;
-        boolean actualTransactions = customerLoginPage.equalsCountTransaction(expectedTransactions);
-        softAssert.assertTrue(actualTransactions,
+        boolean actualMessage7 = customerLoginPage.equalsCountTransaction(expectedTransactions);
+        softAssert.assertTrue(actualMessage7,
                 "Изначальное количество транзакций должно быть больше 0");
 
         customerLoginPage.resetTransactions();
 
         Integer expectedTransactions1 = 0;
-        boolean actualTransactions1 = customerLoginPage.equalsCountTransaction(expectedTransactions1);
-        softAssert.assertTrue(actualTransactions1,
+        boolean actualMessage8 = customerLoginPage.equalsCountTransaction(expectedTransactions1);
+        softAssert.assertTrue(actualMessage8,
                 "Количество транзакций должно быть равно 0");
 
         Integer expectedMessage9 = 0;
