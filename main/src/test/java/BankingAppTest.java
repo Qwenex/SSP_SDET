@@ -63,11 +63,9 @@ public class BankingAppTest extends BaseTest {
     @Description("Валидное добавление нового клиента")
     @Test(description = "Валидное добавление клиента", dataProvider = "customerForTest")
     public void addCustomerInBankManagerLoginTest(String firstName, String lastName, String postCode) {
-
         String actualMessage = homePage
                 .moveToBankManagerLoginPage()
-                .addCustomer(firstName, lastName, postCode)
-                .getTextFromAlert();
+                .addCustomerAndGetAlert(firstName, lastName, postCode);
         String expectedMessage = "Customer added successfully";
 
         Assert.assertTrue(actualMessage.contains(expectedMessage),
@@ -81,14 +79,17 @@ public class BankingAppTest extends BaseTest {
     @Description("Валидное открытие аккаунта клиента")
     @Test(description = "Валидное открытие аккаунта клиента", dataProvider = "customerForTest")
     public void openCustomerInBankManagerLoginTest(String firstName, String lastName, String postCode) {
-        String actualMessage = homePage
-                .moveToBankManagerLoginPage()
-                .addCustomer(firstName, lastName, postCode)
-                .openAccount(String.format("%s %s", firstName, lastName), "Dollar")
-                .getTextFromAlert();
+        BankManagerLoginPage bankManagerLoginPage = homePage.moveToBankManagerLoginPage();
 
+        String actualAddCustomerAlert = bankManagerLoginPage
+                .addCustomerAndGetAlert(firstName, lastName, postCode);
+        String expectedAddCustomerAlert = "Customer added successfully";
+        Assert.assertTrue(actualAddCustomerAlert.contains(expectedAddCustomerAlert),
+                "Alert сообщение отличается от ожидаемого");
+
+        String actualMessage = bankManagerLoginPage.openAccountAndGetAlert(
+                String.format("%s %s", firstName, lastName), "Dollar");
         String expectedMessage = "Account created successfully";
-
         Assert.assertTrue(actualMessage.contains(expectedMessage),
                 "Alert сообщение отличается от ожидаемого");
     }
@@ -101,17 +102,25 @@ public class BankingAppTest extends BaseTest {
     @Test(description = "Набор операций со счетом клиента", dataProvider = "customerForTest")
     public void customerTest(String firstName, String lastName, String postCode) {
         String customer = String.format("%s %s", firstName, lastName);
+        BankManagerLoginPage bankManagerLoginPage = homePage.moveToBankManagerLoginPage();
 
-        homePage.moveToBankManagerLoginPage()
-                .addCustomer(firstName, lastName, postCode)
-                .openAccount(customer, "Dollar");
-        CustomerLoginPage customerLoginPage = homePage
+        String actualAddCustomerAlert = bankManagerLoginPage.addCustomerAndGetAlert(firstName, lastName, postCode);
+        String expectedAddCustomerAlert = "Customer added successfully";
+        Assert.assertTrue(actualAddCustomerAlert.contains(expectedAddCustomerAlert),
+                "Alert сообщение отличается от ожидаемого");
+
+        String actualOpenAccountAlert = bankManagerLoginPage.openAccountAndGetAlert(customer, "Dollar");
+        String expectedOpenAccountAlert = "Account created successfully";
+        Assert.assertTrue(actualOpenAccountAlert.contains(expectedOpenAccountAlert),
+                "Alert сообщение отличается от ожидаемого");
+
+        CustomerLoginPage customerLoginPage = bankManagerLoginPage
                 .moveToHomePage()
                 .moveToCustomerLoginPage();
 
         String actualMessage = customerLoginPage
                 .selectCustomer(customer)
-                .loginButtonClick();
+                .loginButtonClickAndGetMassage();
         String expectedMessage = String.format("Welcome %s !!", customer);
         Assert.assertEquals(actualMessage, expectedMessage);
 
@@ -170,20 +179,21 @@ public class BankingAppTest extends BaseTest {
                 "Баланс должен быть равен 0");
 
         // 5.3.7
-        customerLoginPage.moveToTransactions();
-        Integer countTransactions = customerLoginPage.getCountTransactions();
-        softAssert.assertTrue(countTransactions > 0,
+        Integer expectedTransactions = 3;
+        boolean actualTransactions = customerLoginPage.equalsCountTransaction(expectedTransactions);
+        softAssert.assertTrue(actualTransactions,
                 "Изначальное количество транзакций должно быть больше 0");
 
         customerLoginPage.resetTransactions();
-        Integer actualMessage7 = customerLoginPage.getCountTransactions();
-        Integer expectedMessage7 = 0;
-        softAssert.assertEquals(actualMessage7, expectedMessage7,
+
+        Integer expectedTransactions1 = 0;
+        boolean actualTransactions1 = customerLoginPage.equalsCountTransaction(expectedTransactions1);
+        softAssert.assertTrue(actualTransactions1,
                 "Количество транзакций должно быть равно 0");
 
-        Integer actualMessage8 = customerLoginPage.backFromTransactions().getCustomerBalance();
-        Integer expectedMessage8 = 0;
-        softAssert.assertEquals(actualMessage8, expectedMessage8,
+        Integer expectedMessage9 = 0;
+        Integer actualMessage9 = customerLoginPage.getCustomerBalance();
+        softAssert.assertEquals(actualMessage9, expectedMessage9,
                 "Баланс должен быть равен 0");
 
         softAssert.assertAll();
@@ -197,11 +207,15 @@ public class BankingAppTest extends BaseTest {
     @Test(description = "Удаление клиента")
     public void deleteCustomerForFirstNameTest() {
         String customerFirstName = "customerForDelete";
-        BankManagerLoginPage bankManagerLoginPage = homePage
-                .moveToBankManagerLoginPage()
-                .addCustomer(customerFirstName,"lastName","A1111")
-                .moveToCustomersList();
+        BankManagerLoginPage bankManagerLoginPage = homePage.moveToBankManagerLoginPage();
 
+        String actualAddCustomerAlert = bankManagerLoginPage
+                .addCustomerAndGetAlert(customerFirstName, "lastName", "A1111");
+        String expectedAddCustomerAlert = "Customer added successfully";
+        Assert.assertTrue(actualAddCustomerAlert.contains(expectedAddCustomerAlert),
+                "Alert сообщение отличается от ожидаемого");
+
+        bankManagerLoginPage.moveToCustomersList();
         Assert.assertTrue(bankManagerLoginPage.isCustomerExist(customerFirstName),
                 String.format("Клиент с именем \"%s\" должен быть найден в таблице", customerFirstName));
 

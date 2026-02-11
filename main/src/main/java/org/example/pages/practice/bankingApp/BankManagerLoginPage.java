@@ -51,6 +51,9 @@ public class BankManagerLoginPage extends BasePage {
     @FindBy(css = "tbody td:nth-child(1)")
     private List<WebElement> firstNamesTableCells;
 
+    @FindBy(css = "button.home")
+    private WebElement homeButton;
+
     public static final String dynamicDeleteCustomerButton =
             "//td[text()='%s']/..//button[text()='Delete']";
 
@@ -64,8 +67,8 @@ public class BankManagerLoginPage extends BasePage {
         return this;
     }
 
-    @Step("Добавление клиента")
-    public BankManagerLoginPage addCustomer(String firstName, String lastName, String postCode) {
+    @Step("Добавление клиента и получение текста из алерта")
+    public String addCustomerAndGetAlert(String firstName, String lastName, String postCode) {
         waitDisplayed(headerAddCustomerButton);
         headerAddCustomerButton.click();
 
@@ -75,11 +78,11 @@ public class BankManagerLoginPage extends BasePage {
         postCodeField.sendKeys(postCode);
         addCustomerButton.click();
 
-        return this;
+        return getTextFromAlert();
     }
 
-    @Step("Открытие аккаунта клиента")
-    public BankManagerLoginPage openAccount(String customer, String currency) {
+    @Step("Открытие аккаунта клиента и получение текста из алерта")
+    public String openAccountAndGetAlert(String customer, String currency) {
         waitDisplayed(headerOpenAccountButton);
         headerOpenAccountButton.click();
 
@@ -91,7 +94,7 @@ public class BankManagerLoginPage extends BasePage {
         selectCurrency.selectByValue(currency);
         processButton.click();
 
-        return this;
+        return getTextFromAlert();
     }
 
     @Step("Переход на вкладку \"Customers\"")
@@ -131,4 +134,10 @@ public class BankManagerLoginPage extends BasePage {
         return this;
     }
 
+    @Step("Переход на главную страницу \"Way2Automation Banking App\"")
+    public HomePage moveToHomePage() {
+        waitDisplayed(homeButton);
+        homeButton.click();
+        return new HomePage(webDriver);
+    }
 }

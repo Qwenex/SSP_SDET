@@ -7,15 +7,24 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.NoSuchElementException;
+import java.util.function.Supplier;
 
 public abstract class BasePage {
 
     public WebDriver webDriver;
     public WebDriverWait wait;
     public Actions actions;
+
+    public Wait<WebDriver> fluentWait = new FluentWait<>(webDriver)
+            .withTimeout(Duration.ofSeconds(10L))
+            .pollingEvery(Duration.ofSeconds(1L))
+            .ignoring(NoSuchElementException.class);
 
     public BasePage(WebDriver webDriver) {
         this.webDriver = webDriver;

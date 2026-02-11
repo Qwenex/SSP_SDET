@@ -6,10 +6,16 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.Wait;
 
+import java.time.Duration;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class CustomerLoginPage extends BasePage {
 
@@ -66,6 +72,9 @@ public class CustomerLoginPage extends BasePage {
     @FindBy(css = "div[ng-hide='noAccount'] strong:nth-child(2)")
     private WebElement customerBalance;
 
+    @FindBy(css = "button.home")
+    private WebElement homeButton;
+
     public CustomerLoginPage(WebDriver webDriver) {
         super(webDriver);
     }
@@ -85,7 +94,7 @@ public class CustomerLoginPage extends BasePage {
     }
 
     @Step("Нажатие на кнопку \"Login\"")
-    public String loginButtonClick() {
+    public String loginButtonClickAndGetMassage() {
         waitDisplayed(loginButton);
         loginButton.click();
 
@@ -132,17 +141,10 @@ public class CustomerLoginPage extends BasePage {
         }
     }
 
-    // без Thread.sleep - 5.3.1 и 5.3.3 будут flaky-тестами
     @Step("Переход на вкладку \"Transactions\"")
     public CustomerLoginPage moveToTransactions() {
-        try {
-            Thread.sleep(1000);
-            waitDisplayed(headerTransactionsButton);
-            headerTransactionsButton.click();
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        waitDisplayed(headerTransactionsButton);
+        headerTransactionsButton.click();
         return this;
     }
 
@@ -153,22 +155,36 @@ public class CustomerLoginPage extends BasePage {
         return this;
     }
 
+    @Step("Проверка транзакции")
+    public void checkTransaction(Supplier<Boolean> supplier) {
+        fluentWait.until(webDriver1 -> {
+            moveToTransactions();
+            boolean b = supplier.get();
+            backFromTransactions();
+            return b;
+        });
+    }
+
     @Step("Проверка на существование записи о внесении средств в таблице \"Transactions\"")
     public boolean isAmountInCreditList(Integer amount) {
-        moveToTransactions();
-        boolean b = amountCreditList.stream().anyMatch(webElement ->
-                Objects.equals(webElement.getText(), amount.toString()));
-        backFromTransactions();
-        return b;
+        try {
+            checkTransaction(() -> amountCreditList.stream().anyMatch(webElement ->
+                    Objects.equals(webElement.getText(), amount.toString())));
+        } catch (TimeoutException e) {
+            return false;
+        }
+        return true;
     }
 
     @Step("Проверка на существование записи о снятии средств в таблице \"Transactions\"")
     public boolean isAmountInDebitList(Integer amount) {
-        moveToTransactions();
-        boolean b = amountDebitList.stream().anyMatch(webElement ->
-                Objects.equals(webElement.getText(), amount.toString()));
-        backFromTransactions();
-        return b;
+        try {
+            checkTransaction(() -> amountDebitList.stream().anyMatch(webElement ->
+                    Objects.equals(webElement.getText(), amount.toString())));
+        } catch (TimeoutException e) {
+            return false;
+        }
+        return true;
     }
 
     @Step("Получение баланса клиента")
@@ -190,14 +206,28 @@ public class CustomerLoginPage extends BasePage {
         return balance;
     }
 
-    @Step("Получение количества транзакций")
-    public Integer getCountTransactions() {
-        return amountCreditList.size() + amountDebitList.size();
+    @Step("Сравнение числа с количеством транзакций")
+    public boolean equalsCountTransaction(Integer count) {
+        try {
+            checkTransaction(() -> count.equals(amountDebitList.size() + amountCreditList.size()));
+        } catch (TimeoutException e) {
+            return false;
+        }
+        return true;
     }
 
     @Step("Удаление всех транзакций и обнуление счета")
     public void resetTransactions() {
+        moveToTransactions();
         waitDisplayed(transactionsResetButton);
         transactionsResetButton.click();
+        backFromTransactions();
+    }
+
+    @Step("Переход на главную страницу \"Way2Automation Banking App\"")
+    public HomePage moveToHomePage() {
+        waitDisplayed(homeButton);
+        homeButton.click();
+        return new HomePage(webDriver);
     }
 }

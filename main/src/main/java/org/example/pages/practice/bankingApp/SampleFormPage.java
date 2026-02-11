@@ -45,6 +45,9 @@ public class SampleFormPage extends BasePage {
     @FindBy(id = "successMessage")
     private WebElement registerSuccessMessage;
 
+    @FindBy(css = "button.home")
+    private WebElement homeButton;
+
     public SampleFormPage(WebDriver webDriver) {
         super(webDriver);
     }
@@ -121,5 +124,12 @@ public class SampleFormPage extends BasePage {
             waitDisplayed(registerErrorMessage);
             return registerErrorMessage.getText();
         }
+    }
+
+    @Step("Переход на главную страницу \"Way2Automation Banking App\"")
+    public HomePage moveToHomePage() {
+        waitDisplayed(homeButton);
+        homeButton.click();
+        return new HomePage(webDriver);
     }
 }
