@@ -1,5 +1,6 @@
 package org.example.pages.practice.bankingApp;
 
+import io.qameta.allure.Step;
 import org.example.pages.BasePage;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -9,6 +10,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Supplier;
 
 public class CustomerLoginPage extends BasePage {
 
@@ -65,15 +67,20 @@ public class CustomerLoginPage extends BasePage {
     @FindBy(css = "div[ng-hide='noAccount'] strong:nth-child(2)")
     private WebElement customerBalance;
 
+    @FindBy(css = "button.home")
+    private WebElement homeButton;
+
     public CustomerLoginPage(WebDriver webDriver) {
         super(webDriver);
     }
 
+    @Step("Открытие страницы \"Customer Login\"")
     public CustomerLoginPage openPage() {
         webDriver.get(URL);
         return this;
     }
 
+    @Step("Выбор клиента из списка \"Your Name\"")
     public CustomerLoginPage selectCustomer(String customer) {
         waitDisplayed(yourNameComboBox);
         Select selectCustomer = new Select(yourNameComboBox);
@@ -81,7 +88,8 @@ public class CustomerLoginPage extends BasePage {
         return this;
     }
 
-    public String loginButtonClick() {
+    @Step("Нажатие на кнопку \"Login\"")
+    public String loginButtonClickAndGetMassage() {
         waitDisplayed(loginButton);
         loginButton.click();
 
@@ -89,6 +97,7 @@ public class CustomerLoginPage extends BasePage {
         return customerWelcomeMessage.getText();
     }
 
+    @Step("Ввод средств через \"Deposit\"")
     public String enterDeposit(Integer amount) {
         waitDisplayed(headerDepositButton);
         headerDepositButton.click();
@@ -109,6 +118,7 @@ public class CustomerLoginPage extends BasePage {
         Примечание: на сайте я не нашел кнопки "Withdrawn",
          допускается что имелось в виду "Withdrawl" в меню и кнопка подтверждения "Withdraw"
      */
+    @Step("Вывод средств через \"Withdrawn\"")
     public String takeWithdrawn(Integer amount) {
         waitDisplayed(headerWithdrawnButton);
         headerWithdrawnButton.click();
@@ -126,46 +136,59 @@ public class CustomerLoginPage extends BasePage {
         }
     }
 
-    // без Thread.sleep - 5.3.1 и 5.3.3 будут flaky-тестами
+    @Step("Переход на вкладку \"Transactions\"")
     public CustomerLoginPage moveToTransactions() {
-        try {
-            Thread.sleep(1000);
-            waitDisplayed(headerTransactionsButton);
-            headerTransactionsButton.click();
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        waitDisplayed(headerTransactionsButton);
+        headerTransactionsButton.click();
         return this;
     }
 
+    @Step("Переход из вкладки \"Transactions\" в главное меню аккаунта клиента")
     public CustomerLoginPage backFromTransactions() {
         waitDisplayed(transactionsBackButton);
         transactionsBackButton.click();
         return this;
     }
 
+    @Step("Проверка транзакции")
+    public void checkTransaction(Supplier<Boolean> supplier) {
+        fluentWait.until(webDriver1 -> {
+            moveToTransactions();
+            boolean b = supplier.get();
+            backFromTransactions();
+            return b;
+        });
+    }
+
+    @Step("Проверка на существование записи о внесении средств в таблице \"Transactions\"")
     public boolean isAmountInCreditList(Integer amount) {
-        moveToTransactions();
-        boolean b = amountCreditList.stream().anyMatch(webElement ->
-                Objects.equals(webElement.getText(), amount.toString()));
-        backFromTransactions();
-        return b;
+        try {
+            checkTransaction(() -> amountCreditList.stream().anyMatch(webElement ->
+                    Objects.equals(webElement.getText(), amount.toString())));
+        } catch (TimeoutException e) {
+            return false;
+        }
+        return true;
     }
 
+    @Step("Проверка на существование записи о снятии средств в таблице \"Transactions\"")
     public boolean isAmountInDebitList(Integer amount) {
-        moveToTransactions();
-        boolean b = amountDebitList.stream().anyMatch(webElement ->
-                Objects.equals(webElement.getText(), amount.toString()));
-        backFromTransactions();
-        return b;
+        try {
+            checkTransaction(() -> amountDebitList.stream().anyMatch(webElement ->
+                    Objects.equals(webElement.getText(), amount.toString())));
+        } catch (TimeoutException e) {
+            return false;
+        }
+        return true;
     }
 
+    @Step("Получение баланса клиента")
     public Integer getCustomerBalance() {
         waitDisplayed(customerBalance);
         return Integer.parseInt(customerBalance.getText());
     }
 
+    @Step("Получение баланса клиента из таблицы \"Transactions\"")
     public Integer getCustomerBalanceFromTransactions() {
         moveToTransactions();
         Integer creditSum = amountCreditList.stream()
@@ -178,17 +201,28 @@ public class CustomerLoginPage extends BasePage {
         return balance;
     }
 
-    public Integer getCountTransactions() {
-        return amountCreditList.size() + amountDebitList.size();
+    @Step("Сравнение числа с количеством транзакций")
+    public boolean equalsCountTransaction(Integer count) {
+        try {
+            checkTransaction(() -> count.equals(amountDebitList.size() + amountCreditList.size()));
+        } catch (TimeoutException e) {
+            return false;
+        }
+        return true;
     }
 
+    @Step("Удаление всех транзакций и обнуление счета")
     public void resetTransactions() {
+        moveToTransactions();
         waitDisplayed(transactionsResetButton);
         transactionsResetButton.click();
+        backFromTransactions();
     }
 
-    public void refresh() {
-        moveToTransactions().backFromTransactions();
+    @Step("Переход на главную страницу \"Way2Automation Banking App\"")
+    public HomePage moveToHomePage() {
+        waitDisplayed(homeButton);
+        homeButton.click();
+        return new HomePage(webDriver);
     }
-
 }

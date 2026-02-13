@@ -1,5 +1,6 @@
 package org.example.pages.practice.bankingApp;
 
+import io.qameta.allure.Step;
 import org.example.pages.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -44,35 +45,44 @@ public class SampleFormPage extends BasePage {
     @FindBy(id = "successMessage")
     private WebElement registerSuccessMessage;
 
+    @FindBy(css = "button.home")
+    private WebElement homeButton;
+
     public SampleFormPage(WebDriver webDriver) {
         super(webDriver);
     }
 
+    @Step("Открытие страницы \"Sample Form\"")
     public SampleFormPage openPage() {
         webDriver.get(URL);
         return this;
     }
 
+    @Step("Ввод в поле\"First Name\"")
     public SampleFormPage setFirstName(String firstName) {
         firstNameField.sendKeys(firstName);
         return this;
     }
 
+    @Step("Ввод в поле\"Last Name\"")
     public SampleFormPage setLastName(String lastName) {
         lastNameField.sendKeys(lastName);
         return this;
     }
 
-    public SampleFormPage setPassword(String password) {
-        passwordField.sendKeys(password);
-        return this;
-    }
-
+    @Step("Ввод в поле\"Email\"")
     public SampleFormPage setEmail(String email) {
         emailField.sendKeys(email);
         return this;
     }
 
+    @Step("Ввод в поле\"Password\"")
+    public SampleFormPage setPassword(String password) {
+        passwordField.sendKeys(password);
+        return this;
+    }
+
+    @Step("Выбор хобби в чек-боксе \"Hobbies\"")
     public SampleFormPage setHobbies(String... hobbies) {
         for (String hobby : hobbies) {
             WebElement hobbyTarget = hobbiesCheckBox.stream().filter(webElement ->
@@ -83,22 +93,26 @@ public class SampleFormPage extends BasePage {
         return this;
     }
 
+    @Step("Получение всего списка \"Hobbies\"")
     public List<String> getHobbiesList() {
         return hobbiesCheckBox.stream().map(webElement ->
                 webElement.getAttribute("value")).toList();
     }
 
+    @Step("Выбор гендера в меню \"Gender\"")
     public SampleFormPage setGender(String gender) {
         Select pickGender = new Select(genderComboBox);
         pickGender.selectByVisibleText(gender);
         return this;
     }
 
+    @Step("Ввод сообщения в поле \"About Yourself\"")
     public SampleFormPage setAboutYourself(String aboutYourself) {
         aboutYourselfField.sendKeys(aboutYourself);
         return this;
     }
 
+    @Step("Нажатие кнопки \"Register\" и получение сообщения об результате регистрации")
     public String submit() {
         scrollToElement(registerButton);
         registerButton.click();
@@ -110,5 +124,12 @@ public class SampleFormPage extends BasePage {
             waitDisplayed(registerErrorMessage);
             return registerErrorMessage.getText();
         }
+    }
+
+    @Step("Переход на главную страницу \"Way2Automation Banking App\"")
+    public HomePage moveToHomePage() {
+        waitDisplayed(homeButton);
+        homeButton.click();
+        return new HomePage(webDriver);
     }
 }

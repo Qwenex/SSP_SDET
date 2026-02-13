@@ -1,3 +1,4 @@
+import io.qameta.allure.*;
 import org.example.pages.practice.bankingApp.BankManagerLoginPage;
 import org.example.pages.practice.bankingApp.CustomerLoginPage;
 import org.example.pages.practice.bankingApp.HomePage;
@@ -11,6 +12,7 @@ import org.testng.asserts.SoftAssert;
 import java.util.Comparator;
 import java.util.Random;
 
+@Epic("Way2Automation Banking App")
 public class BankingAppTest extends BaseTest {
 
     public HomePage homePage;
@@ -23,7 +25,11 @@ public class BankingAppTest extends BaseTest {
     }
 
     // 5.1
-    @Test
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Страница \"Sample Form\"")
+    @Story("Регистрация клиента")
+    @Description("Валидная регистрация клиента с вводом в поле \"About Yourself\" самое длинное слово из \"Hobbies\"")
+    @Test(description = "Валидная регистрация клиента")
     public void validRegisterInSampleFormTest() {
         SampleFormPage sampleFormPage = homePage.moveToSampleFormPage();
         String hobbyWithMaxLength = sampleFormPage.getHobbiesList()
@@ -51,11 +57,15 @@ public class BankingAppTest extends BaseTest {
     }
 
     // 5.2.1
-    @Test(dataProvider = "customerForTest")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Страница \"Bank Manager Login\"")
+    @Story("Добавление клиента")
+    @Description("Валидное добавление нового клиента")
+    @Test(description = "Валидное добавление клиента", dataProvider = "customerForTest")
     public void addCustomerInBankManagerLoginTest(String firstName, String lastName, String postCode) {
-        BankManagerLoginPage bankManagerLoginPage = homePage.moveToBankManagerLoginPage();
-
-        String actualMessage = bankManagerLoginPage.addCustomer(firstName, lastName, postCode);
+        String actualMessage = homePage
+                .moveToBankManagerLoginPage()
+                .addCustomerAndGetAlert(firstName, lastName, postCode);
         String expectedMessage = "Customer added successfully";
 
         Assert.assertTrue(actualMessage.contains(expectedMessage),
@@ -63,33 +73,54 @@ public class BankingAppTest extends BaseTest {
     }
 
     // 5.2.2
-    @Test(dataProvider = "customerForTest")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Страница \"Bank Manager Login\"")
+    @Story("Открытие аккаунта клиента")
+    @Description("Валидное открытие аккаунта клиента")
+    @Test(description = "Валидное открытие аккаунта клиента", dataProvider = "customerForTest")
     public void openCustomerInBankManagerLoginTest(String firstName, String lastName, String postCode) {
         BankManagerLoginPage bankManagerLoginPage = homePage.moveToBankManagerLoginPage();
-        bankManagerLoginPage.addCustomer(firstName, lastName, postCode);
 
-        String actualMessage = bankManagerLoginPage.openAccount(
+        String actualAddCustomerAlert = bankManagerLoginPage
+                .addCustomerAndGetAlert(firstName, lastName, postCode);
+        String expectedAddCustomerAlert = "Customer added successfully";
+        Assert.assertTrue(actualAddCustomerAlert.contains(expectedAddCustomerAlert),
+                "Alert сообщение отличается от ожидаемого");
+
+        String actualMessage = bankManagerLoginPage.openAccountAndGetAlert(
                 String.format("%s %s", firstName, lastName), "Dollar");
         String expectedMessage = "Account created successfully";
-
         Assert.assertTrue(actualMessage.contains(expectedMessage),
                 "Alert сообщение отличается от ожидаемого");
     }
 
     // 5.3
-    @Test(dataProvider = "customerForTest")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Страница \"Customer Login\"")
+    @Story("Набор операций со счетом клиента")
+    @Description("Набор операций со счетом клиента: Пополнение, снятие, проверка баланса, очистка транзакций")
+    @Test(description = "Набор операций со счетом клиента", dataProvider = "customerForTest")
     public void customerTest(String firstName, String lastName, String postCode) {
         String customer = String.format("%s %s", firstName, lastName);
-
         BankManagerLoginPage bankManagerLoginPage = homePage.moveToBankManagerLoginPage();
-        bankManagerLoginPage.addCustomer(firstName, lastName, postCode);
-        bankManagerLoginPage.openAccount(customer, "Dollar");
-        homePage.moveToHomePage();
 
-        CustomerLoginPage customerLoginPage = homePage.moveToCustomerLoginPage();
+        String actualAddCustomerAlert = bankManagerLoginPage.addCustomerAndGetAlert(firstName, lastName, postCode);
+        String expectedAddCustomerAlert = "Customer added successfully";
+        Assert.assertTrue(actualAddCustomerAlert.contains(expectedAddCustomerAlert),
+                "Alert сообщение отличается от ожидаемого");
+
+        String actualOpenAccountAlert = bankManagerLoginPage.openAccountAndGetAlert(customer, "Dollar");
+        String expectedOpenAccountAlert = "Account created successfully";
+        Assert.assertTrue(actualOpenAccountAlert.contains(expectedOpenAccountAlert),
+                "Alert сообщение отличается от ожидаемого");
+
+        CustomerLoginPage customerLoginPage = bankManagerLoginPage
+                .moveToHomePage()
+                .moveToCustomerLoginPage();
+
         String actualMessage = customerLoginPage
                 .selectCustomer(customer)
-                .loginButtonClick();
+                .loginButtonClickAndGetMassage();
         String expectedMessage = String.format("Welcome %s !!", customer);
         Assert.assertEquals(actualMessage, expectedMessage);
 
@@ -148,38 +179,47 @@ public class BankingAppTest extends BaseTest {
                 "Баланс должен быть равен 0");
 
         // 5.3.7
-        customerLoginPage.moveToTransactions();
-        Integer countTransactions = customerLoginPage.getCountTransactions();
-        softAssert.assertTrue(countTransactions > 0,
+        Integer expectedTransactions = 3;
+        boolean actualMessage7 = customerLoginPage.equalsCountTransaction(expectedTransactions);
+        softAssert.assertTrue(actualMessage7,
                 "Изначальное количество транзакций должно быть больше 0");
 
         customerLoginPage.resetTransactions();
-        Integer actualMessage7 = customerLoginPage.getCountTransactions();
-        Integer expectedMessage7 = 0;
-        softAssert.assertEquals(actualMessage7, expectedMessage7,
+
+        Integer expectedTransactions1 = 0;
+        boolean actualMessage8 = customerLoginPage.equalsCountTransaction(expectedTransactions1);
+        softAssert.assertTrue(actualMessage8,
                 "Количество транзакций должно быть равно 0");
 
-        Integer actualMessage8 = customerLoginPage.backFromTransactions().getCustomerBalance();
-        Integer expectedMessage8 = 0;
-        softAssert.assertEquals(actualMessage8, expectedMessage8,
+        Integer expectedMessage9 = 0;
+        Integer actualMessage9 = customerLoginPage.getCustomerBalance();
+        softAssert.assertEquals(actualMessage9, expectedMessage9,
                 "Баланс должен быть равен 0");
 
         softAssert.assertAll();
     }
 
     // 5.4
-    @Test
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Страница \"Bank Manager Login\"")
+    @Story("Удаление клиента")
+    @Description("Удаление клиента и проверка в таблице \"Customers\"")
+    @Test(description = "Удаление клиента")
     public void deleteCustomerForFirstNameTest() {
         String customerFirstName = "customerForDelete";
         BankManagerLoginPage bankManagerLoginPage = homePage.moveToBankManagerLoginPage();
-        bankManagerLoginPage.addCustomer(customerFirstName,"lastName","A1111");
+
+        String actualAddCustomerAlert = bankManagerLoginPage
+                .addCustomerAndGetAlert(customerFirstName, "lastName", "A1111");
+        String expectedAddCustomerAlert = "Customer added successfully";
+        Assert.assertTrue(actualAddCustomerAlert.contains(expectedAddCustomerAlert),
+                "Alert сообщение отличается от ожидаемого");
 
         bankManagerLoginPage.moveToCustomersList();
         Assert.assertTrue(bankManagerLoginPage.isCustomerExist(customerFirstName),
                 String.format("Клиент с именем \"%s\" должен быть найден в таблице", customerFirstName));
 
-        bankManagerLoginPage.deleteCustomer(customerFirstName);
-        bankManagerLoginPage.clearSearch();
+        bankManagerLoginPage.deleteCustomer(customerFirstName).clearSearch();
         Assert.assertFalse(bankManagerLoginPage.isCustomerExist(customerFirstName),
                 String.format("Клиент с именем \"%s\" не должен быть найден в таблице", customerFirstName));
     }

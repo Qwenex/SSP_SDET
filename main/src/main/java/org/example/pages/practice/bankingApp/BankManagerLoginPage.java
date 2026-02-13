@@ -1,5 +1,6 @@
 package org.example.pages.practice.bankingApp;
 
+import io.qameta.allure.Step;
 import org.example.pages.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -50,20 +51,24 @@ public class BankManagerLoginPage extends BasePage {
     @FindBy(css = "tbody td:nth-child(1)")
     private List<WebElement> firstNamesTableCells;
 
+    @FindBy(css = "button.home")
+    private WebElement homeButton;
+
     public static final String dynamicDeleteCustomerButton =
             "//td[text()='%s']/..//button[text()='Delete']";
-
 
     public BankManagerLoginPage(WebDriver webDriver) {
         super(webDriver);
     }
 
+    @Step("Открытие страницы \"Bank Manager Login\"")
     public BankManagerLoginPage openPage() {
         webDriver.get(URL);
         return this;
     }
 
-    public String addCustomer(String firstName, String lastName, String postCode) {
+    @Step("Добавление клиента и получение текста из алерта")
+    public String addCustomerAndGetAlert(String firstName, String lastName, String postCode) {
         waitDisplayed(headerAddCustomerButton);
         headerAddCustomerButton.click();
 
@@ -76,7 +81,8 @@ public class BankManagerLoginPage extends BasePage {
         return getTextFromAlert();
     }
 
-    public String openAccount(String customer, String currency) {
+    @Step("Открытие аккаунта клиента и получение текста из алерта")
+    public String openAccountAndGetAlert(String customer, String currency) {
         waitDisplayed(headerOpenAccountButton);
         headerOpenAccountButton.click();
 
@@ -91,12 +97,14 @@ public class BankManagerLoginPage extends BasePage {
         return getTextFromAlert();
     }
 
+    @Step("Переход на вкладку \"Customers\"")
     public BankManagerLoginPage moveToCustomersList() {
         waitDisplayed(headerCustomersButton);
         headerCustomersButton.click();
         return this;
     }
 
+    @Step("Проверка существования клиента в таблице \"Customers\"")
     public boolean isCustomerExist(String customer) {
         waitDisplayed(searchCustomersField);
         searchCustomersField.sendKeys(customer);
@@ -104,6 +112,7 @@ public class BankManagerLoginPage extends BasePage {
                 webElement.getText().equals(customer));
     }
 
+    @Step("Очистка поля поиска в таблице \"Customers\"")
     public void clearSearch() {
         searchCustomersField.clear();
     }
@@ -112,7 +121,8 @@ public class BankManagerLoginPage extends BasePage {
      * Удаление клиента по имени, фамилии или post code
      * @param value Имя или фамилии или post code клиента
      */
-    public void deleteCustomer(String value) {
+    @Step("Удаление клиента из таблицы \"Customers\"")
+    public BankManagerLoginPage deleteCustomer(String value) {
         String xpath = String.format(dynamicDeleteCustomerButton, value);
         try {
             WebElement deleteButton = webDriver.findElement(By.xpath(xpath));
@@ -121,6 +131,13 @@ public class BankManagerLoginPage extends BasePage {
         } catch (NoSuchElementException e) {
             System.out.printf("Кнопка удаления у \"%s\" в списке не найдена. %s", value, e);
         }
+        return this;
     }
 
+    @Step("Переход на главную страницу \"Way2Automation Banking App\"")
+    public HomePage moveToHomePage() {
+        waitDisplayed(homeButton);
+        homeButton.click();
+        return new HomePage(webDriver);
+    }
 }
