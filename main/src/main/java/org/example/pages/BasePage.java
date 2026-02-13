@@ -2,6 +2,7 @@ package org.example.pages;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -13,6 +14,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public abstract class BasePage {
 
@@ -34,7 +36,12 @@ public abstract class BasePage {
 
     @Step("Ожидание появления веб-элемента")
     public boolean waitDisplayed(WebElement webElement) {
-        return wait.until(ExpectedConditions.visibilityOf(webElement)).isDisplayed();
+        try {
+            return Objects.requireNonNull(wait.until(
+                    ExpectedConditions.visibilityOf(webElement))).isDisplayed();
+        } catch (TimeoutException e) {
+            return false;
+        }
     }
 
     @Step("Скролл до элемента")
