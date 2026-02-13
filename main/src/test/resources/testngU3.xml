@@ -2,7 +2,7 @@
 <suite name="U3" parallel="classes" thread-count="1">
 
     <listeners>
-        <listener class-name="utils.testngListener"/>
+        <listener class-name="utils.TestngListener"/>
     </listeners>
     <test name="U3 tests">
         <classes>

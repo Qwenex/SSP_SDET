@@ -4,7 +4,7 @@ import base.BaseTest;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
-public class testngListener implements ITestListener {
+public class TestngListener implements ITestListener {
 
     @Override
     public void onTestFailure(ITestResult result) {
