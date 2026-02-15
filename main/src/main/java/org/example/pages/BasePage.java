@@ -1,6 +1,7 @@
 package org.example.pages;
 
 import io.qameta.allure.Step;
+import org.example.utils.JavaScriptUtils;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -21,6 +22,7 @@ public abstract class BasePage {
     public WebDriver webDriver;
     public WebDriverWait wait;
     public Actions actions;
+    public JavaScriptUtils javaScriptUtils;
 
     public Wait<WebDriver> fluentWait = new FluentWait<>(webDriver)
             .withTimeout(Duration.ofSeconds(10L))
@@ -31,6 +33,7 @@ public abstract class BasePage {
         this.webDriver = webDriver;
         this.wait = new WebDriverWait(webDriver, Duration.ofSeconds(5));
         this.actions = new Actions(webDriver);
+        this.javaScriptUtils = new JavaScriptUtils(webDriver);
         PageFactory.initElements(webDriver, this);
     }
 
@@ -70,4 +73,21 @@ public abstract class BasePage {
         alert.accept();
         return alertText;
     }
+
+    @Step("Проверка фокуса на элементе")
+    public boolean checkFocus(WebElement webElement) {
+        WebElement focusedElement = webDriver.switchTo().activeElement();
+        return webElement.equals(focusedElement);
+    }
+
+    @Step("Проверка фокуса на элементе")
+    public boolean checkScroll() {
+        return javaScriptUtils.getVerticalScroll() != 0;
+    }
+
+    @Step("Очистка фокуса с элемента")
+    public void clearFocus(WebElement webElement) {
+        javaScriptUtils.blurElement(webElement);
+    }
+
 }
