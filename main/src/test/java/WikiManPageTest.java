@@ -5,9 +5,9 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-@Epic("Сайт ")
+@Epic("Сайт Wikipedia")
 @Feature("Главная страница")
-@Story("Проверка функционала")
+@Story("Функциональность веб-элементов")
 public class WikiManPageTest extends BaseTest {
 
     public WikiMainPage wikiMainPage;

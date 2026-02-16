@@ -80,7 +80,7 @@ public abstract class BasePage {
         return webElement.equals(focusedElement);
     }
 
-    @Step("Проверка фокуса на элементе")
+    @Step("Проверка прокрутки страницы")
     public boolean checkScroll() {
         return javaScriptUtils.getVerticalScroll() != 0;
     }

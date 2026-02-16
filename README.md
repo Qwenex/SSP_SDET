@@ -10,7 +10,7 @@ SimbirSoft Practicum - SDET specialist
 
 * Тест-кейсы:
 
-### 1. [Главная страница](https://www.way2automation.com/)
+### 1. [Главная страница www.way2automation.com](https://www.way2automation.com/)
 
 #### 1.1 Проверка открытия страницы
 - Все основные элементы отображаются:
@@ -46,7 +46,7 @@ SimbirSoft Practicum - SDET specialist
 - Проверить, что произошёл переход на [новую вкладку](https://www.way2automation.com/lifetime-membership-club/)
 - В заголовке содержится текст: **LIFETIME MEMBERSHIP CLUB**
 
-### 4. [Страница авторизации:](https://www.way2automation.com/angularjs-protractor/registeration/#/login)
+### 4. [Страница авторизации: .../registration/#/login](https://www.way2automation.com/angularjs-protractor/registeration/#/login)
 #### 4.1 Проверка полей ввода
 - Поля "Username" и "Password" отображаются
 - Кнопка Login задизейблена при незаполненных полях
@@ -65,7 +65,7 @@ SimbirSoft Practicum - SDET specialist
 - Нажать на кнопку Logout
 - **Ожидаемый результат:** отображаются поля для входа
 
-### 5. [Банковское приложение:](https://www.way2automation.com/angularjs-protractor/banking/#/login)
+### 5. [Банковское приложение: .../banking/#/login](https://www.way2automation.com/angularjs-protractor/banking/#/login)
 #### 5.1 Перейти в интерфейс Sample Form
 - Ввести корректные данные для регистрации
 - В пункте Hobbies выбрать Sports

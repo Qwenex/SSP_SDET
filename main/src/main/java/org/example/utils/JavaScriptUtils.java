@@ -18,13 +18,13 @@ public class JavaScriptUtils {
         js.executeScript("arguments[0].blur();", webElement);
     }
 
-    @Step("Получение количества вертикальной прокрутки страницы в пикселях")
+    @Step("Получение пикселей вертикальной прокрутки страницы")
     public Long getVerticalScroll() {
         return (Long) js.executeScript(
                 "return window.pageYOffset;");
     }
 
-    @Step("Получение количества горизонтальной прокрутки страницы в пикселях")
+    @Step("Получение пикселей горизонтальной прокрутки страницы")
     public Long getHorizontalScroll() {
         return (Long) js.executeScript(
                 "return window.pageXOffset;");
