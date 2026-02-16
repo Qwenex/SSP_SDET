@@ -1,3 +1,4 @@
+import base.BaseTest;
 import io.qameta.allure.*;
 import org.example.pages.practice.bankingApp.BankManagerLoginPage;
 import org.example.pages.practice.bankingApp.CustomerLoginPage;

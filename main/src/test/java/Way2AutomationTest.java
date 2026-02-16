@@ -1,3 +1,4 @@
+import base.BaseTest;
 import io.qameta.allure.*;
 import org.example.pages.way2automation.MainPage;
 import org.testng.Assert;
