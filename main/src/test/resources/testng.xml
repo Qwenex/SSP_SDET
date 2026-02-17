@@ -1,21 +1,16 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All tests" parallel="classes" thread-count="4">
+<suite name="All tests" parallel="classes" thread-count="5">
 
     <listeners>
         <listener class-name="utils.TestngListener"/>
     </listeners>
-    <test name="U1 tests">
+    <test name="UI tests">
         <classes>
             <class name="AuthorizationPracticeTest"/>
+            <class name="AuthorizationPracticeUniversalTest"/>
             <class name="BankingAppTest"/>
             <class name="Way2AutomationTest"/>
+            <class name="WikiManPageTest"/>
         </classes>
     </test>
-
-    <test name="U3 tests">
-        <classes>
-            <class name="AuthorizationPracticeUniversalTest"/>
-        </classes>
-    </test>
-
 </suite>
