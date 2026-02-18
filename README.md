@@ -193,5 +193,14 @@ SimbirSoft Practicum - SDET specialist
 
 ## Задание U-7. Selenium Grid
 1.	Написать отдельную testng.xml конфигурацию для многопоточного запуска тестов.\
-(Запуск сервера Grid: java -jar selenium-server-4.40.0.jar standalone) Port:4444
+ -> Запуск сервера Grid: (Port:4444) \
+`java -jar selenium-server-4.40.0.jar standalone` 
+---
+
+## Задание U-8. Перезапуск упавших тестов
+1.	Настроить автоматический повторный запуск упавших кейсов, указать 2 попытки перезапуска
+2.	Написать скрипт, для выполнения только упавших кейсов с предыдущего прогона \
+ -> Запуск только упавших тестов: \
+`mvn test -Dsurefire.suiteXmlFiles=target/surefire-reports/testng-failed.xml` \
+Или через scripts/rerunFailedTests.bat в терминале
 ---
