@@ -5,6 +5,10 @@
         <listener class-name="utils.TestngListener"/>
         <listener class-name="utils.RetryTransformer"/>
     </listeners>
+
+    <parameter name="browser" value="edge"/>
+    <parameter name="grid.url" value="http://localhost:4444/wd/hub"/>
+
     <test name="UI tests">
         <classes>
             <class name="AuthorizationPracticeTest"/>
@@ -12,6 +16,7 @@
             <class name="BankingAppTest"/>
             <class name="Way2AutomationTest"/>
             <class name="WikiManPageTest"/>
+            <class name="SqlExTest"/>
         </classes>
     </test>
 </suite>

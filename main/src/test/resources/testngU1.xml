@@ -5,6 +5,9 @@
         <listener class-name="utils.TestngListener"/>
         <listener class-name="utils.RetryTransformer"/>
     </listeners>
+
+    <parameter name="browser" value="firefox"/>
+
     <test name="U1 tests">
         <classes>
             <class name="AuthorizationPracticeTest"/>

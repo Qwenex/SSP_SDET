@@ -14,7 +14,7 @@ public class AuthorizationPracticeUniversalTest extends BaseTest {
 
     @BeforeMethod
     public void newPage() {
-        authorizationPage = new AuthorizationPracticePage(remoteWebDriver);
+        authorizationPage = new AuthorizationPracticePage(webDriver);
         authorizationPage.openPage();
     }
 

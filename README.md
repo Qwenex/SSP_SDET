@@ -204,3 +204,14 @@ SimbirSoft Practicum - SDET specialist
 `mvn test -Dsurefire.suiteXmlFiles=target/surefire-reports/testng-failed.xml` \
 Или через scripts/rerunFailedTests.bat в терминале
 ---
+
+## Задание U-9. Разные браузеры
+1.	Настроить запуск автотестов на разных браузерах, без GRID: (Chrome, Firefox, Edge)
+2.	Настроить запуск автотестов на разных браузерах, с использованием GRID
+3.	Разработать класс DriverFactory, создающий различные WebDriver в зависимости \
+от входных параметров (любые браузеры, с GRID и без него) \
+ -> Запуск (примеры): \
+`mvn clean test -Dbrowser=firefox` \
+`mvn clean test -Dbrowser=edge -Dgrid.url=http://localhost:4444` \
+Или через testng.xml (В многопотоке и с listeners)
+---
