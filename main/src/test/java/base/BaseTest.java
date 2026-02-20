@@ -13,16 +13,9 @@ public abstract class BaseTest {
 
     @BeforeMethod
     @Parameters({"browser", "grid.url"})
-    public void setUp(@Optional("") String browser,
+    public void setUp(@Optional("chrome") String browser,
                       @Optional("") String gridUrl) {
-        if (browser != null && !browser.isEmpty() && System.getProperty("browser") == null) {
-            System.setProperty("browser", browser);
-        }
-        if (gridUrl != null && !gridUrl.isEmpty() && System.getProperty("grid.url") == null) {
-            System.setProperty("grid.url", gridUrl);
-        }
-
-        webDriver = DriverFactory.initDriver();
+        webDriver = DriverFactory.initDriver(browser, gridUrl);
     }
 
     @AfterMethod

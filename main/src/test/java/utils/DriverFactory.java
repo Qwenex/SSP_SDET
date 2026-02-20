@@ -19,44 +19,43 @@ public class DriverFactory {
         CHROME, FIREFOX, EDGE
     }
 
-    private static final Browser BROWSER = Browser.valueOf(
-            System.getProperty("browser", "chrome").toUpperCase()
-    );
-    private static final String GRID_URL = System.getProperty("grid.url");
+    public static WebDriver initDriver(String browserParam, String gridUrlParam) {
+        Browser browser = Browser.valueOf(browserParam.trim().toUpperCase());
+        boolean useGrid = gridUrlParam != null && !gridUrlParam.trim().isEmpty();
+        String gridUrl = useGrid ? gridUrlParam.trim() : null;
 
-    public static WebDriver initDriver() {
-        switch (BROWSER) {
+        switch (browser) {
             case CHROME:
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments(
                         "--start-maximized",
                         "--incognito",
                         "--disable-notifications");
-                return createDriver(chromeOptions);
+                return createDriver(chromeOptions, gridUrl);
             case FIREFOX:
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
                 firefoxOptions.addArguments(
-                        "--start-maximized",
-                        "--private");
-                return createDriver(firefoxOptions);
+                        "--width=1920",
+                        "--height=1080");
+                return createDriver(firefoxOptions, gridUrl);
             case EDGE:
                 EdgeOptions edgeOptions = new EdgeOptions();
                 edgeOptions.addArguments(
                         "--start-maximized",
                         "--inprivate",
                         "--disable-notifications");
-                return createDriver(edgeOptions);
+                return createDriver(edgeOptions, gridUrl);
             default:
-                throw new IllegalArgumentException("Unsupported browser: " + BROWSER);
+                throw new IllegalArgumentException("Unsupported browser: " + browser);
         }
     }
 
-    private static WebDriver createDriver(Object options) {
-        if (GRID_URL != null && !GRID_URL.isEmpty()) {
+    private static WebDriver createDriver(Object options, String gridUrl) {
+        if (gridUrl != null) {
             try {
-                return new RemoteWebDriver(new URL(GRID_URL), (Capabilities) options);
+                return new RemoteWebDriver(new URL(gridUrl), (Capabilities) options);
             } catch (MalformedURLException e) {
-                throw new RuntimeException("Invalid Grid URL: " + GRID_URL, e);
+                throw new RuntimeException("Invalid Grid URL: " + gridUrl, e);
             }
         } else {
             if (options instanceof ChromeOptions) {
