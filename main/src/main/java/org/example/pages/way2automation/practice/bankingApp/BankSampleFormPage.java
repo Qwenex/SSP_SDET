@@ -1,7 +1,7 @@
 package org.example.pages.way2automation.practice.bankingApp;
 
 import io.qameta.allure.Step;
-import org.example.pages.MainPage;
+import org.example.pages.base.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class BankSampleFormPage extends MainPage {
+public class BankSampleFormPage extends BasePage {
 
     public static final String URL = "https://www.way2automation.com/angularjs-protractor/banking/registrationform.html";
 

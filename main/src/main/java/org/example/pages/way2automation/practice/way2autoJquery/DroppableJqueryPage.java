@@ -1,7 +1,7 @@
 package org.example.pages.way2automation.practice.way2autoJquery;
 
 import io.qameta.allure.Step;
-import org.example.pages.MainPage;
+import org.example.pages.base.BasePage;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -9,7 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
-public class DroppableJqueryPage extends MainPage {
+public class DroppableJqueryPage extends BasePage {
 
     private static final String URL = "http://way2automation.com/way2auto_jquery/droppable.php";
 

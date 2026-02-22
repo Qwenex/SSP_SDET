@@ -1,12 +1,12 @@
 package org.example.pages.way2automation.publicSite;
 
 import io.qameta.allure.Step;
-import org.example.pages.MainPage;
+import org.example.pages.base.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class LifetimeMembershipClubPage extends MainPage {
+public class LifetimeMembershipClubPage extends BasePage {
 
     private static final String URL = "https://www.way2automation.com/lifetime-membership-club/";
 

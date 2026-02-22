@@ -1,4 +1,4 @@
-package org.example.pages;
+package org.example.pages.base;
 
 import io.qameta.allure.Step;
 import org.example.utils.JavaScriptUtils;
@@ -17,7 +17,7 @@ import java.time.Duration;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public abstract class MainPage {
+public abstract class BasePage {
 
     public WebDriver webDriver;
     public WebDriverWait wait;
@@ -29,7 +29,7 @@ public abstract class MainPage {
             .pollingEvery(Duration.ofSeconds(1L))
             .ignoring(NoSuchElementException.class);
 
-    public MainPage(WebDriver webDriver) {
+    public BasePage(WebDriver webDriver) {
         this.webDriver = webDriver;
         this.wait = new WebDriverWait(webDriver, Duration.ofSeconds(5));
         this.actions = new Actions(webDriver);
@@ -48,19 +48,19 @@ public abstract class MainPage {
     }
 
     @Step("Скролл до элемента")
-    public MainPage scrollToElement(WebElement webElement) {
+    public BasePage scrollToElement(WebElement webElement) {
         actions.scrollToElement(webElement).perform();
         return this;
     }
 
     @Step("Скролл вниз")
-    public MainPage scrollDown(Integer pixels) {
+    public BasePage scrollDown(Integer pixels) {
         actions.scrollByAmount(0, pixels).perform();
         return this;
     }
 
     @Step("Скролл вверх")
-    public MainPage scrollUp(Integer pixels) {
+    public BasePage scrollUp(Integer pixels) {
         actions.scrollByAmount(0, -pixels).perform();
         return this;
     }
