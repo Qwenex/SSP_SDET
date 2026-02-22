@@ -1,9 +1,11 @@
+package tests.way2automationTests.practice.bankingApp;
+
 import base.BaseTest;
 import io.qameta.allure.*;
-import org.example.pages.practice.bankingApp.BankManagerLoginPage;
-import org.example.pages.practice.bankingApp.CustomerLoginPage;
-import org.example.pages.practice.bankingApp.HomePage;
-import org.example.pages.practice.bankingApp.SampleFormPage;
+import org.example.pages.way2automation.practice.bankingApp.BankManagerLoginPage;
+import org.example.pages.way2automation.practice.bankingApp.CustomerLoginPage;
+import org.example.pages.way2automation.practice.bankingApp.HomePage;
+import org.example.pages.way2automation.practice.bankingApp.SampleFormPage;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;

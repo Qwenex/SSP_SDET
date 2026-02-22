@@ -10,7 +10,7 @@
 
     <test name="U3 tests">
         <classes>
-            <class name="AuthorizationPracticeUniversalTest"/>
+            <class name="tests.way2automationTests.practice.registration.AuthorizationPracticeUniversalTest"/>
         </classes>
     </test>
 

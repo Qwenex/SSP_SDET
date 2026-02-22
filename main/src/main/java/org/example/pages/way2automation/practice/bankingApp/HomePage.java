@@ -1,12 +1,12 @@
-package org.example.pages.practice.bankingApp;
+package org.example.pages.way2automation.practice.bankingApp;
 
 import io.qameta.allure.Step;
-import org.example.pages.BasePage;
+import org.example.pages.WikipediaMainPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class HomePage extends BasePage {
+public class HomePage extends WikipediaMainPage {
 
     public static final String URL = "https://www.way2automation.com/angularjs-protractor/banking/#/login";
 

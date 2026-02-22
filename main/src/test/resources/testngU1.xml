@@ -10,9 +10,9 @@
 
     <test name="U1 tests">
         <classes>
-            <class name="AuthorizationPracticeTest"/>
-            <class name="BankingAppTest"/>
-            <class name="Way2AutomationTest"/>
+            <class name="tests.way2automationTests.practice.registration.AuthorizationPracticeTest"/>
+            <class name="tests.way2automationTests.practice.bankingApp.BankingAppTest"/>
+            <class name="tests.way2automationTests.Way2AutomationTest"/>
         </classes>
     </test>
 

@@ -1,6 +1,8 @@
+package tests.way2automationTests.practice.registration;
+
 import base.BaseTest;
 import io.qameta.allure.*;
-import org.example.pages.practice.registration.AuthorizationPracticePage;
+import org.example.pages.way2automation.practice.registration.AuthorizationPracticePage;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;

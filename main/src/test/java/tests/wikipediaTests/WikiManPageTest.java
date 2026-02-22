@@ -1,3 +1,5 @@
+package tests.wikipediaTests;
+
 import base.BaseTest;
 import io.qameta.allure.*;
 import org.example.pages.wiki.WikiMainPage;

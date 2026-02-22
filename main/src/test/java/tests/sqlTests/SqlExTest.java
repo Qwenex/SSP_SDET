@@ -1,3 +1,5 @@
+package tests.sqlTests;
+
 import base.BaseTest;
 import io.qameta.allure.*;
 import org.example.pages.sqlEx.SqlExMainPage;

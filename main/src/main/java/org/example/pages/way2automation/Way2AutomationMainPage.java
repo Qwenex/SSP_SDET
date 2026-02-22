@@ -1,14 +1,14 @@
 package org.example.pages.way2automation;
 
 import io.qameta.allure.Step;
-import org.example.pages.BasePage;
+import org.example.pages.WikipediaMainPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-public class MainPage extends BasePage {
+public class Way2AutomationMainPage extends WikipediaMainPage {
 
     private static final String URL = "https://www.way2automation.com/";
 
@@ -51,12 +51,12 @@ public class MainPage extends BasePage {
     @FindBy(css = "li#menu-item-27581 span.menu-text")
     private WebElement lifetimeMembershipClubButton;
 
-    public MainPage(WebDriver webDriver) {
+    public Way2AutomationMainPage(WebDriver webDriver) {
         super(webDriver);
     }
 
     @Step("Открытие главной страницы \"Way2Automation\"")
-    public MainPage openPage() {
+    public Way2AutomationMainPage openPage() {
         webDriver.get(URL);
         return this;
     }
@@ -108,13 +108,13 @@ public class MainPage extends BasePage {
     }
 
     @Step("Нажатие на кнопку \"Назад\" в списке \"Most Popular Software Testing Courses\"")
-    public MainPage mostPopularCoursesPrevButtonClick() {
+    public Way2AutomationMainPage mostPopularCoursesPrevButtonClick() {
         mostPopularCoursesPrevButton.click();
         return this;
     }
 
     @Step("Нажатие на кнопку \"Вперед\" в списке \"Most Popular Software Testing Courses\"")
-    public MainPage mostPopularCoursesNextButtonClick() {
+    public Way2AutomationMainPage mostPopularCoursesNextButtonClick() {
         mostPopularCoursesNextButton.click();
         return this;
     }

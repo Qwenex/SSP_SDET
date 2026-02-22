@@ -192,9 +192,10 @@ SimbirSoft Practicum - SDET specialist
 ---
 
 ## Задание U-7. Selenium Grid
-*	Написать отдельную testng.xml конфигурацию для многопоточного запуска тестов.\
+*	Написать отдельную testng.xml конфигурацию для многопоточного запуска тестов.
 #### Решение: 
-Запуск сервера Grid: (Port:4444) `java -jar selenium-server-4.40.0.jar standalone` \
+Запуск сервера Grid: (Port:4444) \
+`java -jar selenium-server-4.40.0.jar standalone` \
 Запуск через testng.xml
 ---
 
@@ -204,7 +205,7 @@ SimbirSoft Practicum - SDET specialist
 #### Решение:
 * Автозапуск работает через testng.xml\
 Запуск только упавших тестов: 
-  * mvn: `mvn test -Dsurefire.suiteXmlFiles=target/surefire-reports/testng-failed.xml` 
+  * `mvn test -Dsurefire.suiteXmlFiles=target/surefire-reports/testng-failed.xml` 
   * Или через scripts/rerunFailedTests.bat
 
 ---
@@ -222,4 +223,10 @@ SimbirSoft Practicum - SDET specialist
 * Или просто mvn командой (примеры): \
 `mvn clean test -Dbrowser=firefox` \
 `mvn clean test -Dbrowser=edge -Dgrid.url=http://localhost:4444` 
+---
+
+## Задание U-10. Drag and drop
+1.	Открыть [way2automation - droppable](http://way2automation.com/way2auto_jquery/droppable.php)
+2.	Перетащить drag-элемент в принимающую область другого элемента
+3.	Убедиться, что текст принимающего элемента изменился
 ---

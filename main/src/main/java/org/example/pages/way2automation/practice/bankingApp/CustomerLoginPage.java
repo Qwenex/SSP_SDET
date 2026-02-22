@@ -1,7 +1,7 @@
-package org.example.pages.practice.bankingApp;
+package org.example.pages.way2automation.practice.bankingApp;
 
 import io.qameta.allure.Step;
-import org.example.pages.BasePage;
+import org.example.pages.WikipediaMainPage;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-public class CustomerLoginPage extends BasePage {
+public class CustomerLoginPage extends WikipediaMainPage {
 
     public static final String URL = "https://www.way2automation.com/angularjs-protractor/banking/#/customer";
 

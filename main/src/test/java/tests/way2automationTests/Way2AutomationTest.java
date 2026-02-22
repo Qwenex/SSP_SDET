@@ -1,6 +1,8 @@
+package tests.way2automationTests;
+
 import base.BaseTest;
 import io.qameta.allure.*;
-import org.example.pages.way2automation.MainPage;
+import org.example.pages.way2automation.Way2AutomationMainPage;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -9,12 +11,12 @@ import org.testng.annotations.Test;
 @Feature("Главная страница")
 public class Way2AutomationTest extends BaseTest {
 
-    public MainPage mainPage;
+    public Way2AutomationMainPage w2aMainPage;
 
     @BeforeMethod
     public void newPage() {
-        mainPage = new MainPage(webDriver);
-        mainPage.openPage();
+        w2aMainPage = new Way2AutomationMainPage(webDriver);
+        w2aMainPage.openPage();
     }
 
     // 1.1
@@ -24,19 +26,19 @@ public class Way2AutomationTest extends BaseTest {
             " Header, Footer, кнопка регистрации, панель навигации и список курсов")
     @Test(description = "Открытие страницы")
     public void verifyMainPageLoaded() {
-        Assert.assertTrue(mainPage.isHeaderDisplayed(),
+        Assert.assertTrue(w2aMainPage.isHeaderDisplayed(),
                 "Header должен отображаться");
 
-        Assert.assertTrue(mainPage.isNavigationPanelDisplayed(),
+        Assert.assertTrue(w2aMainPage.isNavigationPanelDisplayed(),
                 "Навигационная панель должна отображаться");
 
-        Assert.assertTrue(mainPage.isRegistrationButtonDisplayed(),
+        Assert.assertTrue(w2aMainPage.isRegistrationButtonDisplayed(),
                 "Должна быть хотя бы одна видимая кнопка регистрации");
 
-        Assert.assertTrue(mainPage.isCoursesTableDisplayed(),
+        Assert.assertTrue(w2aMainPage.isCoursesTableDisplayed(),
                 "Таблица курсов должна отображаться");
 
-        Assert.assertTrue(mainPage.isFooterDisplayed(),
+        Assert.assertTrue(w2aMainPage.isFooterDisplayed(),
                 "Футер должен отображаться");
     }
 
@@ -47,10 +49,10 @@ public class Way2AutomationTest extends BaseTest {
             "номера телефонов, почта, ссылки на соц. сети")
     @Test(description = "Header с контактной информацией")
     public void verifyHeaderLoaded() {
-        Assert.assertTrue(mainPage.isHeaderContactInfoDisplayed(),
+        Assert.assertTrue(w2aMainPage.isHeaderContactInfoDisplayed(),
                 "Все элементы контактной информации в хедере должны отображаться");
 
-        Assert.assertTrue(mainPage.isSocialNetworkLinksTableDisplayed(),
+        Assert.assertTrue(w2aMainPage.isSocialNetworkLinksTableDisplayed(),
                 "Список соцсетей должен отображаться");
     }
 
@@ -60,12 +62,12 @@ public class Way2AutomationTest extends BaseTest {
     @Description("Проверка кнопок переключения слайдов \"Most Popular Software Testing Courses\"")
     @Test(description = "Кнопка  переключения \"Вперед\" для слайдов с курсами")
     public void verifyMostPopularCoursesNextButtons() {
-        Assert.assertTrue(mainPage.getMostPopularCoursesList().get(0).isDisplayed(),
+        Assert.assertTrue(w2aMainPage.getMostPopularCoursesList().get(0).isDisplayed(),
                 "Первый блок из списка курсов должен отображаться");
 
-        mainPage.mostPopularCoursesNextButtonClick();
-        mainPage.mostPopularCoursesNextButtonClick();
-        Assert.assertTrue(mainPage.getMostPopularCoursesList().get(2).isDisplayed(),
+        w2aMainPage.mostPopularCoursesNextButtonClick();
+        w2aMainPage.mostPopularCoursesNextButtonClick();
+        Assert.assertTrue(w2aMainPage.getMostPopularCoursesList().get(2).isDisplayed(),
                 "Третий блок из списка курсов должен отображаться");
     }
 
@@ -74,11 +76,11 @@ public class Way2AutomationTest extends BaseTest {
     @Description("Проверка кнопок переключения слайдов \"Most Popular Software Testing Courses\"")
     @Test(description = "Кнопка переключения \"Назад\" для слайдов с курсами")
     public void verifyMostPopularCoursesPrevButtons() {
-        Assert.assertTrue(mainPage.getMostPopularCoursesList().get(0).isDisplayed(),
+        Assert.assertTrue(w2aMainPage.getMostPopularCoursesList().get(0).isDisplayed(),
                 "Первый блок из списка курсов должен отображаться");
 
-        mainPage.mostPopularCoursesPrevButtonClick();
-        Assert.assertTrue(mainPage.getMostPopularCoursesList().get(15).isDisplayed(),
+        w2aMainPage.mostPopularCoursesPrevButtonClick();
+        Assert.assertTrue(w2aMainPage.getMostPopularCoursesList().get(15).isDisplayed(),
                 "Последний (16-й) блок из списка курсов должен отображаться");
     }
 
@@ -89,10 +91,10 @@ public class Way2AutomationTest extends BaseTest {
             " адрес, номера телефонов и эмейлы")
     @Test(description = "Footer с контактной информацией")
     public void verifyFooterLoaded() {
-        Assert.assertTrue(mainPage.isFooterDisplayed(),
+        Assert.assertTrue(w2aMainPage.isFooterDisplayed(),
                 "Футер должен отображаться");
 
-        Assert.assertTrue(mainPage.isFooterAboutUsItemsDisplayed(),
+        Assert.assertTrue(w2aMainPage.isFooterAboutUsItemsDisplayed(),
                 "Все элементы 'About Us' в футере должны отображаться");
     }
 
@@ -103,9 +105,9 @@ public class Way2AutomationTest extends BaseTest {
     @Test(description = "Меню навигации при скроллинге")
     public void verifyNavigationPanelScroll() {
         for (int i = 0; i < 5; i++) {
-            Assert.assertTrue(mainPage.isNavigationPanelDisplayed(),
+            Assert.assertTrue(w2aMainPage.isNavigationPanelDisplayed(),
                     "Навигационная панель должна отображаться");
-            mainPage.scrollDown(500);
+            w2aMainPage.scrollDown(500);
         }
     }
 
@@ -115,7 +117,7 @@ public class Way2AutomationTest extends BaseTest {
     @Description("Проверка перехода по меню навигации на страницу \"Lifetime membership\" и получение заголовка")
     @Test(description = "Переход на страницу \"Lifetime membership\"")
     public void verifyMoveToLifetimeMembershipClubPage() {
-        String actualTitle = mainPage.moveToLifetimeMembershipClubPage().getTitle();
+        String actualTitle = w2aMainPage.moveToLifetimeMembershipClubPage().getTitle();
         String expectedTitle = "LIFETIME MEMBERSHIP CLUB";
         Assert.assertEquals(actualTitle, expectedTitle,
                 "Title не совпадает");
