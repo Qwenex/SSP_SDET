@@ -17,7 +17,7 @@ import java.time.Duration;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public abstract class WikipediaMainPage {
+public abstract class MainPage {
 
     public WebDriver webDriver;
     public WebDriverWait wait;
@@ -29,7 +29,7 @@ public abstract class WikipediaMainPage {
             .pollingEvery(Duration.ofSeconds(1L))
             .ignoring(NoSuchElementException.class);
 
-    public WikipediaMainPage(WebDriver webDriver) {
+    public MainPage(WebDriver webDriver) {
         this.webDriver = webDriver;
         this.wait = new WebDriverWait(webDriver, Duration.ofSeconds(5));
         this.actions = new Actions(webDriver);
@@ -48,19 +48,19 @@ public abstract class WikipediaMainPage {
     }
 
     @Step("Скролл до элемента")
-    public WikipediaMainPage scrollToElement(WebElement webElement) {
+    public MainPage scrollToElement(WebElement webElement) {
         actions.scrollToElement(webElement).perform();
         return this;
     }
 
     @Step("Скролл вниз")
-    public WikipediaMainPage scrollDown(Integer pixels) {
+    public MainPage scrollDown(Integer pixels) {
         actions.scrollByAmount(0, pixels).perform();
         return this;
     }
 
     @Step("Скролл вверх")
-    public WikipediaMainPage scrollUp(Integer pixels) {
+    public MainPage scrollUp(Integer pixels) {
         actions.scrollByAmount(0, -pixels).perform();
         return this;
     }

@@ -1,7 +1,7 @@
 package org.example.pages.way2automation.practice.bankingApp;
 
 import io.qameta.allure.Step;
-import org.example.pages.WikipediaMainPage;
+import org.example.pages.MainPage;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-public class CustomerLoginPage extends WikipediaMainPage {
+public class BankCustomerLoginPage extends MainPage {
 
     public static final String URL = "https://www.way2automation.com/angularjs-protractor/banking/#/customer";
 
@@ -71,18 +71,18 @@ public class CustomerLoginPage extends WikipediaMainPage {
     @FindBy(css = "button.home")
     private WebElement homeButton;
 
-    public CustomerLoginPage(WebDriver webDriver) {
+    public BankCustomerLoginPage(WebDriver webDriver) {
         super(webDriver);
     }
 
     @Step("Открытие страницы \"Customer Login\"")
-    public CustomerLoginPage openPage() {
+    public BankCustomerLoginPage openPage() {
         webDriver.get(URL);
         return this;
     }
 
     @Step("Выбор клиента из списка \"Your Name\"")
-    public CustomerLoginPage selectCustomer(String customer) {
+    public BankCustomerLoginPage selectCustomer(String customer) {
         waitDisplayed(yourNameComboBox);
         Select selectCustomer = new Select(yourNameComboBox);
         selectCustomer.selectByVisibleText(customer);
@@ -138,14 +138,14 @@ public class CustomerLoginPage extends WikipediaMainPage {
     }
 
     @Step("Переход на вкладку \"Transactions\"")
-    public CustomerLoginPage moveToTransactions() {
+    public BankCustomerLoginPage moveToTransactions() {
         waitDisplayed(headerTransactionsButton);
         headerTransactionsButton.click();
         return this;
     }
 
     @Step("Переход из вкладки \"Transactions\" в главное меню аккаунта клиента")
-    public CustomerLoginPage backFromTransactions() {
+    public BankCustomerLoginPage backFromTransactions() {
         waitDisplayed(transactionsBackButton);
         transactionsBackButton.click();
         return this;
@@ -221,9 +221,9 @@ public class CustomerLoginPage extends WikipediaMainPage {
     }
 
     @Step("Переход на главную страницу \"Way2Automation Banking App\"")
-    public HomePage moveToHomePage() {
+    public BankHomePage moveToHomePage() {
         waitDisplayed(homeButton);
         homeButton.click();
-        return new HomePage(webDriver);
+        return new BankHomePage(webDriver);
     }
 }

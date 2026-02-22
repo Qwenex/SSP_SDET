@@ -1,12 +1,12 @@
 package org.example.pages.sqlEx;
 
 import io.qameta.allure.Step;
-import org.example.pages.WikipediaMainPage;
+import org.example.pages.MainPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class SqlExMainPage extends WikipediaMainPage {
+public class SqlExMainPage extends MainPage {
 
     private static final String URL = "https://www.sql-ex.ru";
 

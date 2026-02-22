@@ -225,7 +225,7 @@ SimbirSoft Practicum - SDET specialist
 `mvn clean test -Dbrowser=edge -Dgrid.url=http://localhost:4444` 
 ---
 
-## Задание U-10. Drag and drop
+## Задание U-10. Drag and drop (IFrame)
 1.	Открыть [way2automation - droppable](http://way2automation.com/way2auto_jquery/droppable.php)
 2.	Перетащить drag-элемент в принимающую область другого элемента
 3.	Убедиться, что текст принимающего элемента изменился

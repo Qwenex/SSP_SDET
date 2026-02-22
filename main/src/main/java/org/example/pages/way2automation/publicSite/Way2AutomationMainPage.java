@@ -1,14 +1,14 @@
-package org.example.pages.way2automation;
+package org.example.pages.way2automation.publicSite;
 
 import io.qameta.allure.Step;
-import org.example.pages.WikipediaMainPage;
+import org.example.pages.MainPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-public class Way2AutomationMainPage extends WikipediaMainPage {
+public class Way2AutomationMainPage extends MainPage {
 
     private static final String URL = "https://www.way2automation.com/";
 

@@ -2,7 +2,7 @@ package tests.way2automationTests;
 
 import base.BaseTest;
 import io.qameta.allure.*;
-import org.example.pages.way2automation.Way2AutomationMainPage;
+import org.example.pages.way2automation.publicSite.Way2AutomationMainPage;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
