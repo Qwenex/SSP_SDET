@@ -27,9 +27,10 @@
     <test name="Firefox local">
         <parameter name="browser" value="firefox"/>
         <classes>
-            <class name="tests.way2automationTests.practice.bankingApp.BankingAppTest"/>
             <class name="tests.sqlTests.SqlExTest"/>
+            <class name="tests.way2automationTests.practice.bankingApp.BankingAppTest"/>
             <class name="tests.way2automationTests.practice.jquery.DragAndDropJqueryTest"/>
+            <class name="tests.way2automationTests.practice.jquery.FramesAndWindowsJqueryTest"/>
         </classes>
     </test>
 

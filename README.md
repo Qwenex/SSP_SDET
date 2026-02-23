@@ -230,3 +230,10 @@ SimbirSoft Practicum - SDET specialist
 2.	Перетащить drag-элемент в принимающую область другого элемента
 3.	Убедиться, что текст принимающего элемента изменился
 ---
+
+## Задача U11. Tabs
+1.	Открыть [way2automation - frames-and-windows](http://way2automation.com/way2auto_jquery/frames-and-windows.php)
+2.	Нажать на ссылку "New Browser Tab"
+3.	Перенести фокус на новую вкладку, нажать ссылку "New Browser Tab" еще раз
+4.	Убедиться, что открылась третья вкладка
+---
