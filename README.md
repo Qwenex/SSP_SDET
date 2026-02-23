@@ -207,7 +207,6 @@ SimbirSoft Practicum - SDET specialist
 Запуск только упавших тестов: 
   * `mvn test -Dsurefire.suiteXmlFiles=target/surefire-reports/testng-failed.xml` 
   * Или через scripts/rerunFailedTests.bat
-
 ---
 
 ## Задание U-9. Разные браузеры
@@ -243,4 +242,11 @@ SimbirSoft Practicum - SDET specialist
 2.	Нажать Input Alert
 3.	Нажать кнопку, ввести кастомный текст, подтвердить
 4.	Убедиться, что текст применился
+---
+
+## Задача U13. Basic auth
+1.	Открыть [httpwatch.com - authentication](https://www.httpwatch.com/httpgallery/authentication/)
+2.	Нажать на кнопку "Display Image"
+3.	Пройти авторизацию (логин "httpwatch" пароль "httpwatch")
+4.	Убедиться, что авторизация прошла успешно
 ---

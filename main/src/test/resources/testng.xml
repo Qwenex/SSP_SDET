@@ -32,6 +32,7 @@
             <class name="tests.way2automationTests.practice.jquery.DragAndDropJqueryTest"/>
             <class name="tests.way2automationTests.practice.jquery.FramesAndWindowsJqueryTest"/>
             <class name="tests.way2automationTests.practice.jquery.AlertJqueryTest"/>
+            <class name="tests.httpwatchTests.HttpWatchAuthenticationTest"/>
         </classes>
     </test>
 
