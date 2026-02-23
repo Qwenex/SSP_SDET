@@ -3,6 +3,7 @@
 
     <listeners>
         <listener class-name="utils.TestngListener"/>
+        <listener class-name="utils.RetryTransformer"/>
     </listeners>
     <test name="UI tests">
         <classes>
