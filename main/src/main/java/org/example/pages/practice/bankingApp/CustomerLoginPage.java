@@ -2,6 +2,7 @@ package org.example.pages.practice.bankingApp;
 
 import io.qameta.allure.Step;
 import org.example.pages.BasePage;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -109,7 +110,7 @@ public class CustomerLoginPage extends BasePage {
         try {
             waitDisplayed(depositSuccessfulMessage);
             return depositSuccessfulMessage.getText();
-        } catch (TimeoutException e) {
+        } catch (TimeoutException | NoSuchElementException e) {
             return "";
         }
     }
@@ -130,7 +131,7 @@ public class CustomerLoginPage extends BasePage {
         try {
             waitDisplayed(withdrawnTransactionSuccessfulMessage);
             return withdrawnTransactionSuccessfulMessage.getText();
-        } catch (TimeoutException e) {
+        } catch (TimeoutException | NoSuchElementException e) {
             waitDisplayed(withdrawnTransactionsErrorMessage);
             return withdrawnTransactionsErrorMessage.getText();
         }

@@ -15,7 +15,7 @@ public class SqlExTest extends BaseTest {
 
     @BeforeMethod
     public void newPage() {
-        sqlExMainPage = new SqlExMainPage(webDriver);
+        sqlExMainPage = new SqlExMainPage(remoteWebDriver);
         sqlExMainPage.openPage();
     }
 

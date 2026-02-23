@@ -190,3 +190,8 @@ SimbirSoft Practicum - SDET specialist
 3.	Вынести код JavaScriptExecutor в отдельные функции, пометить каждую как Step
 4.	Реализовать тест-кейс, использующий описанный функционал
 ---
+
+## Задание U-7. Selenium Grid
+1.	Написать отдельную testng.xml конфигурацию для многопоточного запуска тестов.\
+(Запуск сервера Grid: java -jar selenium-server-4.40.0.jar standalone) Port:4444
+---

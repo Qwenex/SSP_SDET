@@ -13,7 +13,7 @@ public class Way2AutomationTest extends BaseTest {
 
     @BeforeMethod
     public void newPage() {
-        mainPage = new MainPage(webDriver);
+        mainPage = new MainPage(remoteWebDriver);
         mainPage.openPage();
     }
 
