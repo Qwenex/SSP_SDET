@@ -14,7 +14,7 @@ public class WikiManPageTest extends BaseTest {
 
     @BeforeMethod
     public void newPage() {
-        wikiMainPage = new WikiMainPage(remoteWebDriver);
+        wikiMainPage = new WikiMainPage(webDriver);
         wikiMainPage.openPage();
     }
 

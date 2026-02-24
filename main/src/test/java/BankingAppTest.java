@@ -21,7 +21,7 @@ public class BankingAppTest extends BaseTest {
 
     @BeforeMethod
     public void newPage() {
-        homePage = new HomePage(remoteWebDriver);
+        homePage = new HomePage(webDriver);
         homePage.openPage();
     }
 

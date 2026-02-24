@@ -192,15 +192,34 @@ SimbirSoft Practicum - SDET specialist
 ---
 
 ## Задание U-7. Selenium Grid
-1.	Написать отдельную testng.xml конфигурацию для многопоточного запуска тестов.\
- -> Запуск сервера Grid: (Port:4444) \
-`java -jar selenium-server-4.40.0.jar standalone` 
+*	Написать отдельную testng.xml конфигурацию для многопоточного запуска тестов.\
+#### Решение: 
+Запуск сервера Grid: (Port:4444) `java -jar selenium-server-4.40.0.jar standalone` \
+Запуск через testng.xml
 ---
 
 ## Задание U-8. Перезапуск упавших тестов
 1.	Настроить автоматический повторный запуск упавших кейсов, указать 2 попытки перезапуска
-2.	Написать скрипт, для выполнения только упавших кейсов с предыдущего прогона \
- -> Запуск только упавших тестов: \
-`mvn test -Dsurefire.suiteXmlFiles=target/surefire-reports/testng-failed.xml` \
-Или через scripts/rerunFailedTests.bat в терминале
+2.	Написать скрипт, для выполнения только упавших кейсов с предыдущего прогона 
+#### Решение:
+* Автозапуск работает через testng.xml\
+Запуск только упавших тестов: 
+  * mvn: `mvn test -Dsurefire.suiteXmlFiles=target/surefire-reports/testng-failed.xml` 
+  * Или через scripts/rerunFailedTests.bat
+
+---
+
+## Задание U-9. Разные браузеры
+1.	Настроить запуск автотестов на разных браузерах, без GRID: (Chrome, Firefox, Edge)
+2.	Настроить запуск автотестов на разных браузерах, с использованием GRID
+3.	Разработать класс DriverFactory, создающий различные WebDriver в зависимости \
+от входных параметров (любые браузеры, с GRID и без него)
+#### Решение:
+* Запуск через файл testng.xml **(Приоритет)**
+   * В безопасном многопотоке
+   * С listeners
+   * Одновременное использование разных браузеров для разных тестов как с grid, так и без него.
+* Или просто mvn командой (примеры): \
+`mvn clean test -Dbrowser=firefox` \
+`mvn clean test -Dbrowser=edge -Dgrid.url=http://localhost:4444` 
 ---

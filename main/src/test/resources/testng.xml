@@ -1,17 +1,35 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All tests" parallel="classes" thread-count="5">
+<suite name="All tests" parallel="tests" thread-count="3">
 
     <listeners>
         <listener class-name="utils.TestngListener"/>
         <listener class-name="utils.RetryTransformer"/>
     </listeners>
-    <test name="UI tests">
+
+    <test name="Chrome + grid">
+        <parameter name="browser" value="Chrome"/>
+        <parameter name="grid.url" value="http://localhost:4444/wd/hub"/>
         <classes>
             <class name="AuthorizationPracticeTest"/>
             <class name="AuthorizationPracticeUniversalTest"/>
-            <class name="BankingAppTest"/>
-            <class name="Way2AutomationTest"/>
-            <class name="WikiManPageTest"/>
         </classes>
     </test>
+
+    <test name="Edge + grid">
+        <parameter name="browser" value="Edge"/>
+        <parameter name="grid.url" value="http://localhost:4444/wd/hub"/>
+        <classes>
+            <class name="WikiManPageTest"/>
+            <class name="Way2AutomationTest"/>
+        </classes>
+    </test>
+
+    <test name="Firefox local">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="BankingAppTest"/>
+            <class name="SqlExTest"/>
+        </classes>
+    </test>
+
 </suite>
