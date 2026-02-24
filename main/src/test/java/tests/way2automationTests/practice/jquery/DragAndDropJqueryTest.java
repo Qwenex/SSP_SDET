@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 @Feature("Раздел Jquery")
 public class DragAndDropJqueryTest extends BaseTest {
 
-    public DroppableJqueryPage djp;
+    private DroppableJqueryPage djp;
 
     @BeforeMethod
     public void newPage() {
@@ -24,7 +24,7 @@ public class DragAndDropJqueryTest extends BaseTest {
     @Test(description = "Перемещение draggable-элемента в зону droppable-элемента")
     public void droppingTest() {
         String expectedMassage = "Dropped!";
-        String actualMassage = djp.dropElementAndGetMessage();
+        String actualMassage = djp.dropElement().getMessageFromDroppableElement();
         Assert.assertEquals(actualMassage, expectedMassage,
                 "Сообщение в \"Droppable element\" после перемещения в него другого элемента " +
                         "отличается от ожидаемого");

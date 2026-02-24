@@ -29,6 +29,7 @@ public class DriverFactory {
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments(
                         "--start-maximized",
+                        "--disable-notifications",
                         "--incognito",
                         "--disable-notifications");
                 return createDriver(chromeOptions, gridUrl);

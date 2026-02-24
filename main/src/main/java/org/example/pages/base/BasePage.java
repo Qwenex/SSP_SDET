@@ -2,6 +2,7 @@ package org.example.pages.base;
 
 import io.qameta.allure.Step;
 import org.example.utils.JavaScriptUtils;
+import org.example.utils.ReadProperty;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -23,6 +24,9 @@ public abstract class BasePage {
     public WebDriverWait wait;
     public Actions actions;
     public JavaScriptUtils javaScriptUtils;
+
+    private final ReadProperty rpW2A = new ReadProperty("way2automationURL");
+    public String way2automationURL = rpW2A.get("url");
 
     public Wait<WebDriver> fluentWait = new FluentWait<>(webDriver)
             .withTimeout(Duration.ofSeconds(10L))

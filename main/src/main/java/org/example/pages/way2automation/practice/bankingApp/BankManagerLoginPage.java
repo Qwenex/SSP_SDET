@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
 
 public class BankManagerLoginPage extends BasePage {
 
-    public static final String URL = "https://www.way2automation.com/angularjs-protractor/banking/#/manager";
+    public final String URL = way2automationURL + "/angularjs-protractor/banking/#/manager";
 
     @FindBy(css = "button[ng-click='addCust()']")
     private WebElement headerAddCustomerButton;

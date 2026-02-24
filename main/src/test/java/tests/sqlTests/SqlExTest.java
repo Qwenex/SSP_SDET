@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 @Feature("Главная страница")
 public class SqlExTest extends BaseTest {
 
-    public SqlExMainPage sqlExMainPage;
+    private SqlExMainPage sqlExMainPage;
 
     @BeforeMethod
     public void newPage() {
@@ -30,7 +30,7 @@ public class SqlExTest extends BaseTest {
         if (CookieFileManager.isCookiesExists(cookiesFilePath)) {
             CookieFileManager.loadCookies(webDriver, cookiesFilePath);
         } else {
-            ReadProperty prop = new ReadProperty("sql/user1");
+            ReadProperty prop = new ReadProperty("credentials/sql/user1");
             boolean actualNicknameDisplayed = sqlExMainPage
                     .enterLogin(prop.get("login"))
                     .enterPassword(prop.get("password"))

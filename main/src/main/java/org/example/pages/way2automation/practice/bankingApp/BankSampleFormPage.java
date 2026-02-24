@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class BankSampleFormPage extends BasePage {
 
-    public static final String URL = "https://www.way2automation.com/angularjs-protractor/banking/registrationform.html";
+    public final String URL = way2automationURL + "/angularjs-protractor/banking/registrationform.html";
 
     @FindBy(id = "firstName")
     private WebElement firstNameField;

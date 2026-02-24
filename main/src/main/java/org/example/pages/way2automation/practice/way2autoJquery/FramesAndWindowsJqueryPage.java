@@ -8,8 +8,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class FramesAndWindowsJqueryPage extends BasePage {
 
-    private static final String URL =
-            "http://way2automation.com/way2auto_jquery/frames-and-windows.php#load_box";
+    private final String URL = way2automationURL + "/way2auto_jquery/frames-and-windows.php#load_box";
 
     @FindBy(css = "div.farme_window a")
     private WebElement newBrowserTabLink;

@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 @Feature("Раздел Jquery")
 public class FramesAndWindowsJqueryTest extends BaseTest {
 
-    public FramesAndWindowsJqueryPage fawJP;
+    private FramesAndWindowsJqueryPage fawJP;
 
     @BeforeMethod
     public void newPage() {

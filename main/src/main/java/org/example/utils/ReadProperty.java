@@ -10,7 +10,7 @@ public class ReadProperty {
 
     public ReadProperty(String path) {
         this.props = new Properties();
-        String resourcePath = "credentials/" + path + ".properties";
+        String resourcePath = path + ".properties";
 
         try (InputStream is = getClass().getClassLoader().getResourceAsStream(resourcePath)) {
             if (is == null) {

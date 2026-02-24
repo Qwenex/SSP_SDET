@@ -194,9 +194,8 @@ SimbirSoft Practicum - SDET specialist
 ## Задание U-7. Selenium Grid
 *	Написать отдельную testng.xml конфигурацию для многопоточного запуска тестов.
 #### Решение: 
-Запуск сервера Grid: (Port:4444) \
-`java -jar selenium-server-4.40.0.jar standalone` \
-Запуск через testng.xml
+* Запуск сервера Grid: (Port:4444) `java -jar selenium-server-4.40.0.jar standalone`
+* Запуск через testng.xml
 ---
 
 ## Задание U-8. Перезапуск упавших тестов

@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 @Feature("authentication")
 public class HttpWatchAuthenticationTest extends BaseTest {
 
-    public HttpWatchAuthenticationPage hwAuthPage;
+    private HttpWatchAuthenticationPage hwAuthPage;
 
     @BeforeMethod
     public void newPage() {

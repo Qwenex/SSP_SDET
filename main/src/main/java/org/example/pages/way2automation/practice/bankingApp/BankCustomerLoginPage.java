@@ -15,7 +15,7 @@ import java.util.function.Supplier;
 
 public class BankCustomerLoginPage extends BasePage {
 
-    public static final String URL = "https://www.way2automation.com/angularjs-protractor/banking/#/customer";
+    public final String URL = way2automationURL + "/angularjs-protractor/banking/#/customer";
 
     @FindBy(id = "userSelect")
     private WebElement yourNameComboBox;
@@ -110,7 +110,7 @@ public class BankCustomerLoginPage extends BasePage {
         try {
             waitDisplayed(depositSuccessfulMessage);
             return depositSuccessfulMessage.getText();
-        } catch (TimeoutException | NoSuchElementException e) {
+        } catch (Exception e) {
             return "";
         }
     }
@@ -131,7 +131,7 @@ public class BankCustomerLoginPage extends BasePage {
         try {
             waitDisplayed(withdrawnTransactionSuccessfulMessage);
             return withdrawnTransactionSuccessfulMessage.getText();
-        } catch (TimeoutException | NoSuchElementException e) {
+        } catch (Exception e) {
             waitDisplayed(withdrawnTransactionsErrorMessage);
             return withdrawnTransactionsErrorMessage.getText();
         }
