@@ -1,6 +1,8 @@
+package tests.wikipediaTests;
+
 import base.BaseTest;
 import io.qameta.allure.*;
-import org.example.pages.wiki.WikiMainPage;
+import org.example.pages.wiki.WikipediaMainPage;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -10,41 +12,41 @@ import org.testng.annotations.Test;
 @Story("Функциональность веб-элементов")
 public class WikiManPageTest extends BaseTest {
 
-    public WikiMainPage wikiMainPage;
+    public WikipediaMainPage wikipediaMainPage;
 
     @BeforeMethod
     public void newPage() {
-        wikiMainPage = new WikiMainPage(webDriver);
-        wikiMainPage.openPage();
+        wikipediaMainPage = new WikipediaMainPage(webDriver);
+        wikipediaMainPage.openPage();
     }
 
     @Severity(SeverityLevel.MINOR)
     @Test(description = "Фокус поля поиска")
     public void focusSearchFieldTest() {
-        Assert.assertFalse(wikiMainPage.isSearchFieldInFocus(),
+        Assert.assertFalse(wikipediaMainPage.isSearchFieldInFocus(),
                 "Поле поиска должно быть не в фокусе");
 
-        wikiMainPage.clickOnSearchField();
-        Assert.assertTrue(wikiMainPage.isSearchFieldInFocus(),
+        wikipediaMainPage.clickOnSearchField();
+        Assert.assertTrue(wikipediaMainPage.isSearchFieldInFocus(),
                 "Поле поиска должно быть в фокусе");
 
-        wikiMainPage.clearFocusFromSearchField();
-        Assert.assertFalse(wikiMainPage.isSearchFieldInFocus(),
+        wikipediaMainPage.clearFocusFromSearchField();
+        Assert.assertFalse(wikipediaMainPage.isSearchFieldInFocus(),
                 "Поле поиска должно быть не в фокусе");
     }
 
     @Severity(SeverityLevel.NORMAL)
     @Test(description = "Скролл страницы")
     public void scrollPageTest() {
-        Assert.assertFalse(wikiMainPage.checkScroll(),
+        Assert.assertFalse(wikipediaMainPage.checkScroll(),
                 "Вертикальная прокрутка страницы должна отсутствовать");
 
-        wikiMainPage.scrollDown(300);
-        Assert.assertTrue(wikiMainPage.checkScroll(),
+        wikipediaMainPage.scrollDown(300);
+        Assert.assertTrue(wikipediaMainPage.checkScroll(),
                 "Вертикальная прокрутка страницы должна присутствовать");
 
-        wikiMainPage.scrollUp(300);
-        Assert.assertFalse(wikiMainPage.checkScroll(),
+        wikipediaMainPage.scrollUp(300);
+        Assert.assertFalse(wikipediaMainPage.checkScroll(),
                 "Вертикальная прокрутка страницы должна отсутствовать");
     }
 }

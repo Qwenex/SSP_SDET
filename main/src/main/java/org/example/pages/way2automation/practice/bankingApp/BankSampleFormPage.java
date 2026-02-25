@@ -1,7 +1,7 @@
-package org.example.pages.practice.bankingApp;
+package org.example.pages.way2automation.practice.bankingApp;
 
 import io.qameta.allure.Step;
-import org.example.pages.BasePage;
+import org.example.pages.base.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class SampleFormPage extends BasePage {
+public class BankSampleFormPage extends BasePage {
 
     public static final String URL = "https://www.way2automation.com/angularjs-protractor/banking/registrationform.html";
 
@@ -48,42 +48,42 @@ public class SampleFormPage extends BasePage {
     @FindBy(css = "button.home")
     private WebElement homeButton;
 
-    public SampleFormPage(WebDriver webDriver) {
+    public BankSampleFormPage(WebDriver webDriver) {
         super(webDriver);
     }
 
     @Step("Открытие страницы \"Sample Form\"")
-    public SampleFormPage openPage() {
+    public BankSampleFormPage openPage() {
         webDriver.get(URL);
         return this;
     }
 
     @Step("Ввод в поле\"First Name\"")
-    public SampleFormPage setFirstName(String firstName) {
+    public BankSampleFormPage setFirstName(String firstName) {
         firstNameField.sendKeys(firstName);
         return this;
     }
 
     @Step("Ввод в поле\"Last Name\"")
-    public SampleFormPage setLastName(String lastName) {
+    public BankSampleFormPage setLastName(String lastName) {
         lastNameField.sendKeys(lastName);
         return this;
     }
 
     @Step("Ввод в поле\"Email\"")
-    public SampleFormPage setEmail(String email) {
+    public BankSampleFormPage setEmail(String email) {
         emailField.sendKeys(email);
         return this;
     }
 
     @Step("Ввод в поле\"Password\"")
-    public SampleFormPage setPassword(String password) {
+    public BankSampleFormPage setPassword(String password) {
         passwordField.sendKeys(password);
         return this;
     }
 
     @Step("Выбор хобби в чек-боксе \"Hobbies\"")
-    public SampleFormPage setHobbies(String... hobbies) {
+    public BankSampleFormPage setHobbies(String... hobbies) {
         for (String hobby : hobbies) {
             WebElement hobbyTarget = hobbiesCheckBox.stream().filter(webElement ->
                     Objects.equals(webElement.getAttribute("value"), hobby))
@@ -100,14 +100,14 @@ public class SampleFormPage extends BasePage {
     }
 
     @Step("Выбор гендера в меню \"Gender\"")
-    public SampleFormPage setGender(String gender) {
+    public BankSampleFormPage setGender(String gender) {
         Select pickGender = new Select(genderComboBox);
         pickGender.selectByVisibleText(gender);
         return this;
     }
 
     @Step("Ввод сообщения в поле \"About Yourself\"")
-    public SampleFormPage setAboutYourself(String aboutYourself) {
+    public BankSampleFormPage setAboutYourself(String aboutYourself) {
         aboutYourselfField.sendKeys(aboutYourself);
         return this;
     }
@@ -127,9 +127,9 @@ public class SampleFormPage extends BasePage {
     }
 
     @Step("Переход на главную страницу \"Way2Automation Banking App\"")
-    public HomePage moveToHomePage() {
+    public BankHomePage moveToHomePage() {
         waitDisplayed(homeButton);
         homeButton.click();
-        return new HomePage(webDriver);
+        return new BankHomePage(webDriver);
     }
 }

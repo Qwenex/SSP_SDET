@@ -1,7 +1,7 @@
-package org.example.pages.practice.bankingApp;
+package org.example.pages.way2automation.practice.bankingApp;
 
 import io.qameta.allure.Step;
-import org.example.pages.BasePage;
+import org.example.pages.base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -135,9 +135,9 @@ public class BankManagerLoginPage extends BasePage {
     }
 
     @Step("Переход на главную страницу \"Way2Automation Banking App\"")
-    public HomePage moveToHomePage() {
+    public BankHomePage moveToHomePage() {
         waitDisplayed(homeButton);
         homeButton.click();
-        return new HomePage(webDriver);
+        return new BankHomePage(webDriver);
     }
 }

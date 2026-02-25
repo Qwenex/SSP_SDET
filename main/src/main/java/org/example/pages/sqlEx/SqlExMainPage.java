@@ -1,7 +1,7 @@
 package org.example.pages.sqlEx;
 
 import io.qameta.allure.Step;
-import org.example.pages.BasePage;
+import org.example.pages.base.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

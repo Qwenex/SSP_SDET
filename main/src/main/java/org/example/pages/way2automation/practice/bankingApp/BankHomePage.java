@@ -1,12 +1,12 @@
-package org.example.pages.practice.bankingApp;
+package org.example.pages.way2automation.practice.bankingApp;
 
 import io.qameta.allure.Step;
-import org.example.pages.BasePage;
+import org.example.pages.base.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class HomePage extends BasePage {
+public class BankHomePage extends BasePage {
 
     public static final String URL = "https://www.way2automation.com/angularjs-protractor/banking/#/login";
 
@@ -22,28 +22,28 @@ public class HomePage extends BasePage {
     @FindBy(css = "button.home")
     private WebElement homeButton;
 
-    public HomePage(WebDriver webDriver) {
+    public BankHomePage(WebDriver webDriver) {
         super(webDriver);
     }
 
     @Step("открытие главной страницы \"Way2Automation Banking App\"")
-    public HomePage openPage() {
+    public BankHomePage openPage() {
         webDriver.get(URL);
         return this;
     }
 
     @Step("Переход во вкладку \"Sample Form\"")
-    public SampleFormPage moveToSampleFormPage() {
+    public BankSampleFormPage moveToSampleFormPage() {
         waitDisplayed(sampleFormButton);
         sampleFormButton.click();
-        return new SampleFormPage(webDriver);
+        return new BankSampleFormPage(webDriver);
     }
 
     @Step("Переход во вкладку \"Customer Login\"")
-    public CustomerLoginPage moveToCustomerLoginPage() {
+    public BankCustomerLoginPage moveToCustomerLoginPage() {
         waitDisplayed(customerLoginButton);
         customerLoginButton.click();
-        return new CustomerLoginPage(webDriver);
+        return new BankCustomerLoginPage(webDriver);
     }
 
     @Step("Переход во вкладку \"Bank Manager Login\"")
@@ -54,9 +54,9 @@ public class HomePage extends BasePage {
     }
 
     @Step("Переход на главную страницу \"Way2Automation Banking App\"")
-    public HomePage moveToHomePage() {
+    public BankHomePage moveToHomePage() {
         waitDisplayed(homeButton);
         homeButton.click();
-        return new HomePage(webDriver);
+        return new BankHomePage(webDriver);
     }
 }

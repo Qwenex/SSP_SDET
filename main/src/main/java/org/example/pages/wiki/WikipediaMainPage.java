@@ -1,24 +1,24 @@
 package org.example.pages.wiki;
 
 import io.qameta.allure.Step;
-import org.example.pages.BasePage;
+import org.example.pages.base.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class WikiMainPage extends BasePage {
+public class WikipediaMainPage extends BasePage {
 
     private static final String URL = "https://ru.wikipedia.org/wiki/";
 
     @FindBy(id = "searchInput")
     private WebElement searchField;
 
-    public WikiMainPage(WebDriver webDriver) {
+    public WikipediaMainPage(WebDriver webDriver) {
         super(webDriver);
     }
 
     @Step("Открытие главной страницы \"Wikipedia\"")
-    public WikiMainPage openPage() {
+    public WikipediaMainPage openPage() {
         webDriver.get(URL);
         return this;
     }
@@ -30,14 +30,14 @@ public class WikiMainPage extends BasePage {
     }
 
     @Step("Фокус поля поиска")
-    public WikiMainPage clickOnSearchField() {
+    public WikipediaMainPage clickOnSearchField() {
         waitDisplayed(searchField);
         searchField.click();
         return this;
     }
 
     @Step("Очистка фокуса с поля поиска")
-    public WikiMainPage clearFocusFromSearchField() {
+    public WikipediaMainPage clearFocusFromSearchField() {
         clearFocus(searchField);
         return this;
     }

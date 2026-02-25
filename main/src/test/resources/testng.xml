@@ -10,8 +10,8 @@
         <parameter name="browser" value="Chrome"/>
         <parameter name="grid.url" value="http://localhost:4444/wd/hub"/>
         <classes>
-            <class name="AuthorizationPracticeTest"/>
-            <class name="AuthorizationPracticeUniversalTest"/>
+            <class name="tests.way2automationTests.practice.registration.AuthorizationPracticeTest"/>
+            <class name="tests.way2automationTests.practice.registration.AuthorizationPracticeUniversalTest"/>
         </classes>
     </test>
 
@@ -19,16 +19,17 @@
         <parameter name="browser" value="Edge"/>
         <parameter name="grid.url" value="http://localhost:4444/wd/hub"/>
         <classes>
-            <class name="WikiManPageTest"/>
-            <class name="Way2AutomationTest"/>
+            <class name="tests.wikipediaTests.WikiManPageTest"/>
+            <class name="tests.way2automationTests.Way2AutomationTest"/>
         </classes>
     </test>
 
     <test name="Firefox local">
         <parameter name="browser" value="firefox"/>
         <classes>
-            <class name="BankingAppTest"/>
-            <class name="SqlExTest"/>
+            <class name="tests.way2automationTests.practice.bankingApp.BankingAppTest"/>
+            <class name="tests.sqlTests.SqlExTest"/>
+            <class name="tests.way2automationTests.practice.jquery.DragAndDropJqueryTest"/>
         </classes>
     </test>
 

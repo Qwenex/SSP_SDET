@@ -1,4 +1,4 @@
-package org.example.pages;
+package org.example.pages.base;
 
 import io.qameta.allure.Step;
 import org.example.utils.JavaScriptUtils;
