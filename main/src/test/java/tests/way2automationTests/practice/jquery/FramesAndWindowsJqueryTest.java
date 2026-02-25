@@ -28,7 +28,7 @@ public class FramesAndWindowsJqueryTest extends BaseTest {
                 .openFrame(0)
                 .clickNewBrowserTabLink()
                 .clickNewBrowserTabLink()
-                        .getCountTabs();
+                .getCountTabs();
         Integer expectedMessage = 3;
 
         Assert.assertEquals(actualMessage, expectedMessage,

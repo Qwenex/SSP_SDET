@@ -237,3 +237,10 @@ SimbirSoft Practicum - SDET specialist
 3.	Перенести фокус на новую вкладку, нажать ссылку "New Browser Tab" еще раз
 4.	Убедиться, что открылась третья вкладка
 ---
+
+## Задача U12. Alerts
+1.	Открыть [way2automation - alerts](http://way2automation.com/way2auto_jquery/alert.php)
+2.	Нажать Input Alert
+3.	Нажать кнопку, ввести кастомный текст, подтвердить
+4.	Убедиться, что текст применился
+---
