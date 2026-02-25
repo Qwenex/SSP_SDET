@@ -6,10 +6,11 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class AlertJqueryPage extends BasePage {
 
-    private static final String URL = "http://way2automation.com/way2auto_jquery/alert.php";
+    private final String URL = way2automationURL + "/way2auto_jquery/alert.php";
 
     @FindBy(xpath = "//a[text()='Input Alert']")
     private WebElement inputAlertTabButton;
@@ -43,6 +44,7 @@ public class AlertJqueryPage extends BasePage {
         waitDisplayed(enterTextToAlertButton);
         enterTextToAlertButton.click();
 
+        wait.until(ExpectedConditions.alertIsPresent());
         Alert alert = webDriver.switchTo().alert();
         alert.sendKeys(text);
         alert.accept();
@@ -54,5 +56,4 @@ public class AlertJqueryPage extends BasePage {
         waitDisplayed(welcomeMessage);
         return welcomeMessage.getText();
     }
-
 }

@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 @Feature("Главная страница")
 public class Way2AutomationTest extends BaseTest {
 
-    public Way2AutomationMainPage w2aMainPage;
+    private Way2AutomationMainPage w2aMainPage;
 
     @BeforeMethod
     public void newPage() {

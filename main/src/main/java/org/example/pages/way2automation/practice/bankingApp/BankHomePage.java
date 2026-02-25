@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class BankHomePage extends BasePage {
 
-    public static final String URL = "https://www.way2automation.com/angularjs-protractor/banking/#/login";
+    public final String URL = way2automationURL + "/angularjs-protractor/banking/#/login";
 
     @FindBy(css = "div.center:nth-child(1) a")
     private WebElement sampleFormButton;

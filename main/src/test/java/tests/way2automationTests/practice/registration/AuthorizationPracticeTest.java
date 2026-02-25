@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 @Feature("Registration")
 public class AuthorizationPracticeTest extends BaseTest {
 
-   public AuthorizationPracticePage authorizationPage;
+    private AuthorizationPracticePage authorizationPage;
 
     @BeforeMethod
     public void newPage() {

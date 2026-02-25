@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 @Story("Функциональность веб-элементов")
 public class WikiManPageTest extends BaseTest {
 
-    public WikipediaMainPage wikipediaMainPage;
+    private WikipediaMainPage wikipediaMainPage;
 
     @BeforeMethod
     public void newPage() {

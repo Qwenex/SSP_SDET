@@ -14,7 +14,7 @@ public abstract class BaseTest {
     @BeforeMethod
     @Parameters({"browser", "grid.url"})
     public void setUp(@Optional("chrome") String browser,
-                      @Optional("") String gridUrl) {
+                      @Optional() String gridUrl) {
         webDriver = DriverFactory.initDriver(browser, gridUrl);
     }
 

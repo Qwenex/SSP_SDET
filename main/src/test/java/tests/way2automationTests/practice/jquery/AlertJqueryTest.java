@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 @Feature("Раздел Jquery")
 public class AlertJqueryTest extends BaseTest {
 
-    public AlertJqueryPage ajp;
+    private AlertJqueryPage ajp;
 
     @BeforeMethod
     public void newPage() {

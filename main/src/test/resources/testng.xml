@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All tests" parallel="tests" thread-count="3">
+<suite name="All tests" parallel="tests" thread-count="4">
 
     <listeners>
         <listener class-name="utils.TestngListener"/>
@@ -25,13 +25,20 @@
     </test>
 
     <test name="Firefox local">
-        <parameter name="browser" value="firefox"/>
+        <parameter name="browser" value="Firefox"/>
+        <classes>
+            <class name="tests.way2automationTests.practice.bankingApp.BankingAppTest"/>
+        </classes>
+    </test>
+
+    <test name="Chrome local">
+        <parameter name="browser" value="Chrome"/>
         <classes>
             <class name="tests.sqlTests.SqlExTest"/>
-            <class name="tests.way2automationTests.practice.bankingApp.BankingAppTest"/>
             <class name="tests.way2automationTests.practice.jquery.DragAndDropJqueryTest"/>
             <class name="tests.way2automationTests.practice.jquery.FramesAndWindowsJqueryTest"/>
             <class name="tests.way2automationTests.practice.jquery.AlertJqueryTest"/>
+            <class name="tests.httpwatchTests.HttpWatchAuthenticationTest"/>
         </classes>
     </test>
 

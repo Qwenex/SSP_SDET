@@ -18,7 +18,7 @@ import java.util.Random;
 @Epic("Way2Automation Banking App")
 public class BankingAppTest extends BaseTest {
 
-    public BankHomePage bankHomePage;
+    private BankHomePage bankHomePage;
     public SoftAssert softAssert;
 
     @BeforeMethod

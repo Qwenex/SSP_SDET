@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class AuthorizationPracticePage extends BasePage {
 
-    public static final String URL = "https://www.way2automation.com/angularjs-protractor/registeration/#/login";
+    public final String URL = way2automationURL + "/angularjs-protractor/registeration/#/login";
 
     @FindBy(id = "username")
     private WebElement usernameField;

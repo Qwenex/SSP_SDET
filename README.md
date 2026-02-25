@@ -194,9 +194,8 @@ SimbirSoft Practicum - SDET specialist
 ## Задание U-7. Selenium Grid
 *	Написать отдельную testng.xml конфигурацию для многопоточного запуска тестов.
 #### Решение: 
-Запуск сервера Grid: (Port:4444) \
-`java -jar selenium-server-4.40.0.jar standalone` \
-Запуск через testng.xml
+* Запуск сервера Grid: (Port:4444) `java -jar selenium-server-4.40.0.jar standalone`
+* Запуск через testng.xml
 ---
 
 ## Задание U-8. Перезапуск упавших тестов
@@ -207,7 +206,6 @@ SimbirSoft Practicum - SDET specialist
 Запуск только упавших тестов: 
   * `mvn test -Dsurefire.suiteXmlFiles=target/surefire-reports/testng-failed.xml` 
   * Или через scripts/rerunFailedTests.bat
-
 ---
 
 ## Задание U-9. Разные браузеры
@@ -243,4 +241,11 @@ SimbirSoft Practicum - SDET specialist
 2.	Нажать Input Alert
 3.	Нажать кнопку, ввести кастомный текст, подтвердить
 4.	Убедиться, что текст применился
+---
+
+## Задача U13. Basic auth
+1.	Открыть [httpwatch.com - authentication](https://www.httpwatch.com/httpgallery/authentication/)
+2.	Нажать на кнопку "Display Image"
+3.	Пройти авторизацию (логин "httpwatch" пароль "httpwatch")
+4.	Убедиться, что авторизация прошла успешно
 ---
