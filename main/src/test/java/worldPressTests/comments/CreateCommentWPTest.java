@@ -4,12 +4,14 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
 import io.restassured.RestAssured;
-import org.example.worldPressPojo.CommentWP;
-import org.example.worldPressPojo.PostWP;
-import org.example.worldPressPojo.StatusPostWP;
+import org.example.worldPress.CommentWP;
+import org.example.worldPress.PostWP;
+import org.example.worldPress.StatusPostWP;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import worldPressTests.BaseWPTest;
 
+import static org.example.worldPress.helpers.ApiWpHelper.*;
 import static org.testng.Assert.assertEquals;
 
 @Story("Создание комментария к посту")
@@ -21,26 +23,28 @@ public class CreateCommentWPTest extends BaseWPTest {
         String title = "Пост 1";
         String postContent = "Описание 1";
         StatusPostWP status = StatusPostWP.PUBLISH;
-        PostWP postWP = createPostWP(title, postContent, status);
+        PostWP postWP = apiWpHelper.createPostWP(title, postContent, status);
 
         Integer post = postWP.getId();
         String commentContent = "Комментарий 1";
-        CommentWP commentWP = createCommentWP(post, commentContent);
+        CommentWP commentWP = apiWpHelper.createCommentWP(post, commentContent);
 
-        assertEquals(commentWP.getContent(), commentContent,
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(commentWP.getContent(), commentContent,
                 "Параметр комментария \"content\" отличается от ожидаемого");
-        assertEquals(commentWP.getPost(), postWP.getId(),
+        softAssert.assertEquals(commentWP.getPost(), postWP.getId(),
                 "Параметр комментария \"Post\" и параметр поста \"ID\" не совпадают");
 
-        CommentWP commentWPFromDB = getAllCommentsWPFromDB().get(commentWP.getId() - 1);
-        assertEquals(commentWPFromDB.getId(), commentWP.getId(),
+        CommentWP commentWPFromDB = dbWpHelper.getAllCommentsWPFromDB().get(commentWP.getId() - 1);
+        softAssert.assertEquals(commentWPFromDB.getId(), commentWP.getId(),
                 "Параметр комментария из БД \"ID\" отличается от ожидаемого");
-        assertEquals(commentWPFromDB.getPost(), commentWP.getPost(),
+        softAssert.assertEquals(commentWPFromDB.getPost(), commentWP.getPost(),
                 "Параметр комментария из БД \"Post\" отличается от ожидаемого");
-        assertEquals(commentWPFromDB.getContent(), commentWP.getContent(),
+        softAssert.assertEquals(commentWPFromDB.getContent(), commentWP.getContent(),
                 "Параметр комментария из БД \"content\" отличается от ожидаемого");
-        assertEquals(commentWPFromDB.getPost(), postWP.getId(),
+        softAssert.assertEquals(commentWPFromDB.getPost(), postWP.getId(),
                 "Параметр комментария из БД \"Post\" и параметр поста из БД \"ID\" не совпадают");
+        softAssert.assertAll();
     }
 
     @Severity(SeverityLevel.MINOR)
@@ -49,12 +53,11 @@ public class CreateCommentWPTest extends BaseWPTest {
         String title = "Пост без комментариев";
         String postContent = "Описание";
         StatusPostWP status = StatusPostWP.PUBLISH;
-        PostWP postWP = createPostWP(title, postContent, status);
+        PostWP postWP = apiWpHelper.createPostWP(title, postContent, status);
 
         Integer post = postWP.getId();
         RestAssured.given()
-                .auth().preemptive().basic(login, password)
-                .baseUri(BASE_URL)
+                .spec(requestSpec)
                 .queryParam("rest_route", COMMENTS)
                 .queryParam("post", post)
                 .when()

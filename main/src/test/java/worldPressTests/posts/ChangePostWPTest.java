@@ -3,9 +3,10 @@ package worldPressTests.posts;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
-import org.example.worldPressPojo.PostWP;
-import org.example.worldPressPojo.StatusPostWP;
+import org.example.worldPress.PostWP;
+import org.example.worldPress.StatusPostWP;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import worldPressTests.BaseWPTest;
 
 import static org.testng.Assert.assertEquals;
@@ -19,29 +20,31 @@ public class ChangePostWPTest extends BaseWPTest {
         String title = "Старое название поста";
         String content = "Старое описание поста";
         StatusPostWP status = StatusPostWP.PENDING;
-        PostWP postWP = createPostWP(title, content, status);
+        PostWP postWP = apiWpHelper.createPostWP(title, content, status);
 
         Integer originPostID = postWP.getId();
         String newTitle = "Новое название поста";
         String newContent = "Новое описание поста";
         StatusPostWP newStatus = StatusPostWP.PUBLISH;
-        PostWP updatedPostWP = updatePostWP(originPostID, newTitle, newContent, newStatus);
+        PostWP updatedPostWP = apiWpHelper.updatePostWP(originPostID, newTitle, newContent, newStatus);
 
-        assertEquals(updatedPostWP.getTitle(), newTitle,
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(updatedPostWP.getTitle(), newTitle,
                 "Новый параметр поста \"title\" отличается от ожидаемого");
-        assertEquals(updatedPostWP.getContent(), newContent,
+        softAssert.assertEquals(updatedPostWP.getContent(), newContent,
                 "Новый параметр поста \"content\" отличается от ожидаемого");
-        assertEquals(updatedPostWP.getStatus(), newStatus,
+        softAssert.assertEquals(updatedPostWP.getStatus(), newStatus,
                 "Новый параметр поста \"status\" отличается от ожидаемого");
 
-        PostWP postWPFromDB = getAllPostsWPFromDB().get(postWP.getId() - 1);
-        assertEquals(postWPFromDB.getId(), originPostID,
+        PostWP postWPFromDB = dbWpHelper.getAllPostsWPFromDB().get(postWP.getId() - 1);
+        softAssert.assertEquals(postWPFromDB.getId(), originPostID,
                 "Параметр поста из БД \"ID\" отличается от ожидаемого");
-        assertEquals(postWPFromDB.getTitle(), newTitle,
+        softAssert.assertEquals(postWPFromDB.getTitle(), newTitle,
                 "Параметр поста из БД \"title\" отличается от ожидаемого");
-        assertEquals(postWPFromDB.getContent(), newContent,
+        softAssert.assertEquals(postWPFromDB.getContent(), newContent,
                 "Параметр поста из БД \"content\" отличается от ожидаемого");
-        assertEquals(postWPFromDB.getStatus(), newStatus,
+        softAssert.assertEquals(postWPFromDB.getStatus(), newStatus,
                 "Параметр поста из БД \"status\" отличается от ожидаемого");
+        softAssert.assertAll();
     }
 }

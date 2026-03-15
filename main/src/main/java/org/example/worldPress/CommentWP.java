@@ -1,4 +1,4 @@
-package org.example.worldPressPojo;
+package org.example.worldPress;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

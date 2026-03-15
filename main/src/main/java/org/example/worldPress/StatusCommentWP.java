@@ -1,20 +1,15 @@
-package org.example.worldPressPojo;
+package org.example.worldPress;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum StatusPostWP {
-    PUBLISH("publish"),
-    FUTURE("future"),
-    DRAFT("draft"),
-    PENDING("pending"),
-    PRIVATE("private"),
-    TRASH("trash"),
-    INHERIT("inherit");
+public enum StatusCommentWP {
+    APPROVED("approved"),
+    TRASH("trash");
 
     private final String statusString;
 
-    StatusPostWP(String statusString) {
+    StatusCommentWP(String statusString) {
         this.statusString = statusString;
     }
 
@@ -24,8 +19,8 @@ public enum StatusPostWP {
     }
 
     @JsonCreator
-    public static StatusPostWP fromString(String value) {
-        for (StatusPostWP status : values()) {
+    public static StatusCommentWP fromString(String value) {
+        for (StatusCommentWP status : values()) {
             if (status.statusString.equalsIgnoreCase(value)) {
                 return status;
             }
