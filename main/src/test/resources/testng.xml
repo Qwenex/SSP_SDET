@@ -1,0 +1,20 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="WordPress Suite" parallel="classes" thread-count="6">
+
+    <test name="Posts Tests">
+        <classes>
+            <class name="worldPressTests.posts.CreatePostWPTest"/>
+            <class name="worldPressTests.posts.ChangePostWPTest"/>
+            <class name="worldPressTests.posts.DeletePostWPTest"/>
+        </classes>
+    </test>
+
+    <test name="Comments Tests">
+        <classes>
+            <class name="worldPressTests.comments.CreateCommentWPTest"/>
+            <class name="worldPressTests.comments.ChangeCommentWPTest"/>
+            <class name="worldPressTests.comments.DeleteCommentWPTest"/>
+        </classes>
+    </test>
+
+</suite>
