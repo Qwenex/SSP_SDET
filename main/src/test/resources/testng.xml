@@ -1,11 +1,12 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="WordPress Suite" parallel="classes" thread-count="6">
+<suite name="WordPress Suite" parallel="classes" thread-count="4">
 
     <test name="Posts Tests">
         <classes>
             <class name="worldPressTests.posts.CreatePostWPTest"/>
             <class name="worldPressTests.posts.ChangePostWPTest"/>
             <class name="worldPressTests.posts.DeletePostWPTest"/>
+            <class name="worldPressTests.posts.GetPostWPTest"/>
         </classes>
     </test>
 
@@ -14,6 +15,7 @@
             <class name="worldPressTests.comments.CreateCommentWPTest"/>
             <class name="worldPressTests.comments.ChangeCommentWPTest"/>
             <class name="worldPressTests.comments.DeleteCommentWPTest"/>
+            <class name="worldPressTests.comments.GetCommentWPTest"/>
         </classes>
     </test>
 

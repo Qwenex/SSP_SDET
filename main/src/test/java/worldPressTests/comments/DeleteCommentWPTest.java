@@ -8,6 +8,7 @@ import org.example.worldPress.PostWP;
 import org.example.worldPress.StatusCommentWP;
 import org.example.worldPress.StatusPostWP;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import worldPressTests.BaseWPTest;
 
 import static org.testng.Assert.assertEquals;
@@ -27,11 +28,17 @@ public class DeleteCommentWPTest extends BaseWPTest {
         String commentContent = "Комментарий 1";
         CommentWP commentWP = apiWpHelper.createCommentWP(post, commentContent);
         CommentWP deletedCommentWP = apiWpHelper.deleteCommentWP(commentWP.getId());
-        assertEquals(deletedCommentWP.getStatus(), StatusCommentWP.TRASH,
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(deletedCommentWP.getStatus(), StatusCommentWP.TRASH,
                 "Параметр комментария \"status\" отличается от ожидаемого");
 
-        CommentWP commentWPFromDB = dbWpHelper.getAllCommentsWPFromDB().get(commentWP.getId() - 1);
-        assertEquals(commentWPFromDB.getStatus(), StatusCommentWP.TRASH,
+        CommentWP commentWPFromDB = dbWpHelper.getCommentWP(commentWP.getId());
+        softAssert.assertEquals(commentWPFromDB.getStatus(), StatusCommentWP.TRASH,
                 "Параметр комментария из БД \"status\" отличается от ожидаемого");
+        softAssert.assertAll();
+
+        dbWpHelper.deleteCommentWP(commentWP.getId());
+        dbWpHelper.deletePostWP(postWP.getId());
     }
 }

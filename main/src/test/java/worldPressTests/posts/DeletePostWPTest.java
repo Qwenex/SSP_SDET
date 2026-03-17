@@ -30,11 +30,14 @@ public class DeletePostWPTest extends BaseWPTest {
         softAssert.assertEquals(deletedPostWP.getStatus(), StatusPostWP.TRASH,
                 "Параметр поста \"status\" отличается от ожидаемого");
 
-        PostWP postWPFromDB = dbWpHelper.getAllPostsWPFromDB().get(postWP.getId() - 1);
+        PostWP postWPFromDB = dbWpHelper.getPostWP(postWP.getId());
         softAssert.assertEquals(postWPFromDB.getId(), deletedPostWP.getId(),
                 "Параметр поста из БД \"ID\" отличается от ожидаемого");
         softAssert.assertEquals(postWPFromDB.getStatus(), StatusPostWP.TRASH,
                 "Параметр поста из БД \"status\" отличается от ожидаемого");
         softAssert.assertAll();
+
+        dbWpHelper.deletePostWP(postWP.getId());
+        dbWpHelper.deletePostWP(postWP.getId() + 1);
     }
 }

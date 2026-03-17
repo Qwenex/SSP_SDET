@@ -35,7 +35,7 @@ public class CreateCommentWPTest extends BaseWPTest {
         softAssert.assertEquals(commentWP.getPost(), postWP.getId(),
                 "Параметр комментария \"Post\" и параметр поста \"ID\" не совпадают");
 
-        CommentWP commentWPFromDB = dbWpHelper.getAllCommentsWPFromDB().get(commentWP.getId() - 1);
+        CommentWP commentWPFromDB = dbWpHelper.getCommentWP(commentWP.getId());
         softAssert.assertEquals(commentWPFromDB.getId(), commentWP.getId(),
                 "Параметр комментария из БД \"ID\" отличается от ожидаемого");
         softAssert.assertEquals(commentWPFromDB.getPost(), commentWP.getPost(),
@@ -45,6 +45,9 @@ public class CreateCommentWPTest extends BaseWPTest {
         softAssert.assertEquals(commentWPFromDB.getPost(), postWP.getId(),
                 "Параметр комментария из БД \"Post\" и параметр поста из БД \"ID\" не совпадают");
         softAssert.assertAll();
+
+        dbWpHelper.deleteCommentWP(commentWP.getId());
+        dbWpHelper.deletePostWP(postWP.getId());
     }
 
     @Severity(SeverityLevel.MINOR)
@@ -64,5 +67,7 @@ public class CreateCommentWPTest extends BaseWPTest {
                 .post()
                 .then()
                 .statusCode(400);
+
+        dbWpHelper.deletePostWP(postWP.getId());
     }
 }

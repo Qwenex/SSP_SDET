@@ -28,13 +28,16 @@ public class CreatePostWPTest extends BaseWPTest {
         softAssert.assertEquals(postWP.getContent(), content,
                 "Параметр поста \"content\" отличается от ожидаемого");
 
-        PostWP postWPFromDB = dbWpHelper.getAllPostsWPFromDB().get(postWP.getId() - 1);
+        PostWP postWPFromDB = dbWpHelper.getPostWP(postWP.getId());
         softAssert.assertEquals(postWPFromDB.getId(), postWP.getId(),
                 "Параметр поста из БД \"ID\" отличается от ожидаемого");
         softAssert.assertEquals(postWPFromDB.getTitle(), postWP.getTitle(),
                 "Параметр поста из БД \"title\" отличается от ожидаемого");
         softAssert.assertEquals(postWPFromDB.getContent(), postWP.getContent(),
                 "Параметр поста из БД \"content\" отличается от ожидаемого");
+        softAssert.assertAll();
+
+        dbWpHelper.deletePostWP(postWP.getId());
     }
 
     @Severity(SeverityLevel.NORMAL)
