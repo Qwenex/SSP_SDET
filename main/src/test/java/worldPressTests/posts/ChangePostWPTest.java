@@ -36,7 +36,7 @@ public class ChangePostWPTest extends BaseWPTest {
         softAssert.assertEquals(updatedPostWP.getStatus(), newStatus,
                 "Новый параметр поста \"status\" отличается от ожидаемого");
 
-        PostWP postWPFromDB = dbWpHelper.getAllPostsWPFromDB().get(postWP.getId() - 1);
+        PostWP postWPFromDB = dbWpHelper.getPostWP(postWP.getId());
         softAssert.assertEquals(postWPFromDB.getId(), originPostID,
                 "Параметр поста из БД \"ID\" отличается от ожидаемого");
         softAssert.assertEquals(postWPFromDB.getTitle(), newTitle,
@@ -46,5 +46,8 @@ public class ChangePostWPTest extends BaseWPTest {
         softAssert.assertEquals(postWPFromDB.getStatus(), newStatus,
                 "Параметр поста из БД \"status\" отличается от ожидаемого");
         softAssert.assertAll();
+
+        dbWpHelper.deletePostWP(originPostID);
+        dbWpHelper.deletePostWP(originPostID + 1);
     }
 }

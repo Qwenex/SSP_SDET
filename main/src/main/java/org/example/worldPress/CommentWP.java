@@ -65,7 +65,7 @@ public class CommentWP {
 
     @JsonProperty("content")
     public void setContent(Map<String, String> contentMap) {
-        this.content = contentMap.get("raw");
+        this.content = contentMap.get("rendered").replaceAll("<[^>]*>", "").trim();
     }
 
     @Override
