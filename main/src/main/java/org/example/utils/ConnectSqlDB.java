@@ -4,13 +4,19 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConnectMySqlDB {
+public class ConnectSqlDB {
 
-    private static Connection getConnection() {
-        ReadProperty properties = new ReadProperty("authMySqlDB");
-            String url = properties.get("db.url");
-            String user = properties.get("db.user");
-            String password = properties.get("db.password");
+    private final String url;
+    private final String user;
+    private final String password;
+
+    public ConnectSqlDB(String url, String user, String password) {
+        this.url = url;
+        this.user = user;
+        this.password = password;
+    }
+
+    private Connection getConnection() {
         try {
             return DriverManager.getConnection(url, user, password);
         } catch (SQLException e) {
@@ -18,7 +24,7 @@ public class ConnectMySqlDB {
         }
     }
 
-    public static <T> List<T> getData(String sql, ResultSetMapper<T> mapper) {
+    public <T> List<T> getData(String sql, ResultSetMapper<T> mapper) {
         List<T> results = new ArrayList<>();
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement();
@@ -32,7 +38,7 @@ public class ConnectMySqlDB {
         return results;
     }
 
-    public static Integer setData(String sql) {
+    public Integer setData(String sql) {
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement()) {
             return statement.executeUpdate(sql);

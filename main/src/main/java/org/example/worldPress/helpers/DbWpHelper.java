@@ -1,7 +1,8 @@
 package org.example.worldPress.helpers;
 
 import io.qameta.allure.Step;
-import org.example.utils.ConnectMySqlDB;
+import org.example.utils.ConnectSqlDB;
+import org.example.utils.ReadProperty;
 import org.example.utils.ResultSetMapper;
 import org.example.worldPress.CommentWP;
 import org.example.worldPress.PostWP;
@@ -12,6 +13,12 @@ import java.time.*;
 import java.util.List;
 
 public class DbWpHelper {
+
+    private final static ReadProperty authProperty = new ReadProperty("wordPress/authMySqlDB");
+    private final static String url = authProperty.get("db.url");
+    private final static String user = authProperty.get("db.user");
+    private final static String password = authProperty.get("db.password");
+    private final static ConnectSqlDB connectMySqlDB = new ConnectSqlDB(url, user, password);
 
     private final static String SQL_SELECT_POSTS_REQUEST =
             "SELECT ID, post_title, post_content, post_status FROM wp_posts ";
@@ -60,7 +67,7 @@ public class DbWpHelper {
 
     @Step("Получение всех постов из базы данных")
     public List<PostWP> getAllPostsWP() {
-        return ConnectMySqlDB.getData(
+        return connectMySqlDB.getData(
                 SQL_SELECT_POSTS_REQUEST + "ORDER BY ID",
                 defaultPostsWPMapper()
         );
@@ -68,7 +75,7 @@ public class DbWpHelper {
 
     @Step("Получение поста из базы данных")
     public PostWP getPostWP(Integer postId) {
-        return ConnectMySqlDB.getData(
+        return connectMySqlDB.getData(
                 SQL_SELECT_POSTS_REQUEST + "WHERE ID =" + postId,
                 defaultPostsWPMapper()
         ).get(0);
@@ -76,7 +83,7 @@ public class DbWpHelper {
 
     @Step("Получение всех комментариев из базы данных")
     public List<CommentWP> getAllCommentsWP() {
-        return ConnectMySqlDB.getData(
+        return connectMySqlDB.getData(
                 SQL_SELECT_COMMENTS_REQUEST + "ORDER BY comment_id",
                 defaultCommentsWPMapper()
         );
@@ -84,7 +91,7 @@ public class DbWpHelper {
 
     @Step("Получение комментария из базы данных")
     public CommentWP getCommentWP(Integer commentId) {
-        return ConnectMySqlDB.getData(
+        return connectMySqlDB.getData(
                 SQL_SELECT_COMMENTS_REQUEST + "WHERE comment_id =" + commentId,
                 defaultCommentsWPMapper()
         ).get(0);
@@ -106,7 +113,7 @@ public class DbWpHelper {
     public PostWP setPostWP(String title, String content, StatusPostWP status) {
         String nowDateTime = LocalDateTime.now().toString();
         String nowGmt = LocalDateTime.now(ZoneId.of("UTC")).toString();
-        ConnectMySqlDB.setData(String.format(SQL_INSERT_POSTS_REQUEST,
+        connectMySqlDB.setData(String.format(SQL_INSERT_POSTS_REQUEST,
                 title, content, status.toString(), nowDateTime, nowGmt, nowDateTime, nowGmt));
         return getLastPostWP();
     }
@@ -115,18 +122,18 @@ public class DbWpHelper {
     public CommentWP setCommentWP(Integer postId, String content) {
         String nowDateTime = LocalDateTime.now().toString();
         String nowGmt = LocalDateTime.now(ZoneId.of("UTC")).toString();
-        ConnectMySqlDB.setData(String.format(SQL_INSERT_COMMENTS_REQUEST,
+        connectMySqlDB.setData(String.format(SQL_INSERT_COMMENTS_REQUEST,
                 postId, content, nowDateTime, nowGmt));
         return getLastCommentWP();
     }
 
     @Step("Удаление поста из базы данных")
     public void deletePostWP(Integer postId) {
-        ConnectMySqlDB.setData(String.format(SQL_DELETE_POSTS_REQUEST, postId));
+        connectMySqlDB.setData(String.format(SQL_DELETE_POSTS_REQUEST, postId));
     }
 
     @Step("Удаление комментария из базы данных")
     public void deleteCommentWP(Integer commentId) {
-        ConnectMySqlDB.setData(String.format(SQL_DELETE_COMMENTS_REQUEST, commentId));
+        connectMySqlDB.setData(String.format(SQL_DELETE_COMMENTS_REQUEST, commentId));
     }
 }
