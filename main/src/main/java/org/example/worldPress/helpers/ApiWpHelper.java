@@ -11,12 +11,12 @@ import org.example.worldPress.StatusPostWP;
 
 public class ApiWpHelper {
 
-    private final static ReadProperty urlProperty = new ReadProperty("wordPressURL");
+    private final static ReadProperty urlProperty = new ReadProperty("wordPress/wordPressURL");
     private final static String BASE_URL = urlProperty.get("base.url");
     public final static String POSTS = "/wp/v2/posts/";
     public final static String COMMENTS = "/wp/v2/comments/";
 
-    private final static ReadProperty authProperty = new ReadProperty("authWP");
+    private final static ReadProperty authProperty = new ReadProperty("wordPress/authWP");
     private final static String login = authProperty.get("login");
     private final static String password = authProperty.get("password");
 
