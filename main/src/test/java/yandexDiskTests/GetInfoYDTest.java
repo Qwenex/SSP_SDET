@@ -17,7 +17,7 @@ public class GetInfoYDTest extends BaseYDTest {
         RestAssured
                 .given(requestSpec)
                 .when()
-                .get(DISK_PATH)
+                .get(BASE_PATH)
                 .then()
                 .spec(responseGetSpec)
                 .body("user.login", equalTo("qwenex"))
@@ -31,7 +31,7 @@ public class GetInfoYDTest extends BaseYDTest {
                 .given()
                 .baseUri(BASE_URL)
                 .when()
-                .get(DISK_PATH)
+                .get(BASE_PATH)
                 .then()
                 .statusCode(401)
                 .body("error", is(notNullValue()))

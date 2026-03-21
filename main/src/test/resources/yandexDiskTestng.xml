@@ -1,9 +1,12 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Yandex API">
+<suite name="Yandex API" parallel="classes" thread-count="4">
 
     <test name="Yandex Disk">
         <classes>
             <class name="yandexDiskTests.GetInfoYDTest"/>
+            <class name="yandexDiskTests.CreateDirYDTest"/>
+            <class name="yandexDiskTests.DeleteDirYDTest"/>
+            <class name="yandexDiskTests.RestoreDirYDTest"/>
         </classes>
     </test>
 </suite>

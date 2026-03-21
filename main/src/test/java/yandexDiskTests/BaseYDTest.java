@@ -15,7 +15,9 @@ public class BaseYDTest {
 
     private final static ReadProperty urlProperty = new ReadProperty("yandexApi/yandexApiURL");
     public final static String BASE_URL = urlProperty.get("base.url");
-    public final static String DISK_PATH = "/v1/disk/";
+    public final static String BASE_PATH = "/v1/disk/";
+    public final static String RESOURCES_PATH = BASE_PATH + "resources/";
+    public final static String TRASH_PATH = BASE_PATH + "trash/resources/";
 
     private final static ReadProperty authProperty = new ReadProperty("yandexApi/authYD");
     private final static String AUTH_TOKEN = authProperty.get("OAuth.token");
