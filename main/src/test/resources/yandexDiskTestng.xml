@@ -4,9 +4,9 @@
     <test name="Yandex Disk">
         <classes>
             <class name="yandexDiskTests.GetInfoYDTest"/>
-            <class name="yandexDiskTests.CreateDirYDTest"/>
-            <class name="yandexDiskTests.DeleteDirYDTest"/>
-            <class name="yandexDiskTests.RestoreDirYDTest"/>
+            <class name="yandexDiskTests.directoriesTests.CreateDirYDTest"/>
+            <class name="yandexDiskTests.directoriesTests.DeleteDirYDTest"/>
+            <class name="yandexDiskTests.directoriesTests.RestoreDirYDTest"/>
         </classes>
     </test>
 </suite>

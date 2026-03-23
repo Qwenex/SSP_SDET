@@ -6,6 +6,7 @@ import io.qameta.allure.Story;
 import io.restassured.RestAssured;
 import org.testng.annotations.Test;
 
+import static org.example.yandexDisk.helpers.ApiYdHelper.*;
 import static org.hamcrest.Matchers.*;
 
 @Story("Получение общей информации о пространстве Yandex Disk")
