@@ -18,7 +18,7 @@ public class RestoreDirYDTest extends BaseYDTest {
     public void restoreDirectoryTest() {
         String nameDir = "TestDir3";
         apiYdHelper.createDirectory(nameDir);
-        apiYdHelper.deleteDirectory(nameDir);
+        apiYdHelper.deleteFile(nameDir);
         String newPathDir = apiYdHelper.getDeletedFilePath(nameDir);
 
         RestAssured
