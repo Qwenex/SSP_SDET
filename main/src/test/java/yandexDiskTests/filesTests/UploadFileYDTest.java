@@ -18,7 +18,7 @@ public class UploadFileYDTest extends BaseYDTest {
 
     @Severity(SeverityLevel.NORMAL)
     @Test(description = "Загрузка файла на диск и его копирование")
-    public void uploadAndCopyTest() throws InterruptedException {
+    public void uploadAndCopyTest() {
         ReadProperty property = new ReadProperty("yandexApi/userForTest");
         User user = new User(property.get("username"), property.get("password"));
 
@@ -49,16 +49,19 @@ public class UploadFileYDTest extends BaseYDTest {
                 .then()
                 .statusCode(201);
 
-        RestAssured
+        String copyOperationHref = RestAssured
                 .given(requestSpec)
                 .queryParam("from", dirInName)
                 .queryParam("path", dirOutName)
                 .when()
                 .post(RESOURCES_PATH + "copy")
                 .then()
-                .statusCode(202);
+                .statusCode(202)
+                .extract()
+                .path("href");
 
-        Thread.sleep(1000);
+       apiYdHelper.waitOperation(copyOperationHref, 5);
+
         RestAssured
                 .given(requestSpec)
                 .queryParam("from", dirInName)

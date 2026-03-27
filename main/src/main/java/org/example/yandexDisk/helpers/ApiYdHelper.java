@@ -7,9 +7,11 @@ import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
+import org.awaitility.Awaitility;
 import org.example.utils.ReadProperty;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.Matchers.*;
 
@@ -168,5 +170,26 @@ public class ApiYdHelper {
                 .put(TRASH_PATH + "restore")
                 .then()
                 .statusCode(201);
+    }
+
+    @Step("Проверка статуса асинхронного запроса по ссылке")
+    public boolean isOperationCompleted(String operationHref) {
+        return RestAssured
+                .given(requestSpec)
+                .when()
+                .get(operationHref)
+                .then()
+                .spec(responseGetSpec)
+                .extract()
+                .path("status")
+                .equals("success");
+    }
+
+    @Step("Ожидание завершения асинхронного запроса")
+    public boolean waitOperation(String operationHref, Integer attemptsSeconds) {
+        return Awaitility.await()
+                .atMost(attemptsSeconds, TimeUnit.SECONDS)
+                .pollInterval(200, TimeUnit.MILLISECONDS)
+                .until(() -> isOperationCompleted(operationHref), equalTo(true));
     }
 }

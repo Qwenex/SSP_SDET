@@ -18,6 +18,7 @@
         <testNG.version>7.10.2</testNG.version>
         <selenium.version>4.36.0</selenium.version>
         <rest-assured.version>5.5.6</rest-assured.version>
+        <awaitility.version>4.3.0</awaitility.version>
         <allure-testng.version>2.30.0</allure-testng.version>
         <aspectj.version>1.9.25.1</aspectj.version>
         <jackson.version>2.21.0</jackson.version>
@@ -67,6 +68,11 @@
             <artifactId>aspectjweaver</artifactId>
             <version>${aspectj.version}</version>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <version>${awaitility.version}</version>
         </dependency>
         <!-- DB-->
         <dependency>
