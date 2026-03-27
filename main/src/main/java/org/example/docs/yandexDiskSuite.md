@@ -37,17 +37,17 @@
 1. Сгенерировать текстовый файл `data.txt` с данными:
 username=SDET
 password=secret_key
-2. Загрузить файл в папку `input_data` `PUT` запросом по адресу `/v1/disk/resources/upload`
-3. Скопировать `data.txt` из `input_data` в `output_data` `POST` запросом по адресу `/v1/disk/resources/copy`
-4. Повторить шаг 3
+2. Получить ссылку на загрузку файла `data.txt` `GET` запросом по адресу `/v1/disk/resources/upload`
+3. Загрузить файл в папку `input_data` `PUT` запросом по полученной ссылке
+4. Скопировать `data.txt` из `input_data` в `output_data` `POST` запросом по адресу `/v1/disk/resources/copy`
+5. Повторить шаг 3
 
 **Ожидаемый результат:**
 - **Шаг 2**
   - Код ответа: `200 OK`
 - **Шаг 3**
   - Код ответа: `201 CREATED`
-  - Тело ответа содержит: `"name"`, `"mime_type"`, `"media_type"`
-- **Шаг 4**
+- **Шаг 5**
   - Код ответа: `409 CONFLICT`
   - Тело ответа содержит: `"error"`, `"description": "message"`
 

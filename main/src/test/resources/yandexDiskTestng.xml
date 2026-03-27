@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Yandex API" parallel="classes" thread-count="4">
+<suite name="Yandex API" parallel="classes" thread-count="6">
 
     <test name="Yandex Disk">
         <classes>
@@ -7,6 +7,8 @@
             <class name="yandexDiskTests.directoriesTests.CreateDirYDTest"/>
             <class name="yandexDiskTests.directoriesTests.DeleteDirYDTest"/>
             <class name="yandexDiskTests.directoriesTests.RestoreDirYDTest"/>
+            <class name="yandexDiskTests.filesTests.UploadFileYDTest"/>
+            <class name="yandexDiskTests.filesTests.DownloadFileYDTest"/>
         </classes>
     </test>
 </suite>
