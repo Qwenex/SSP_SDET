@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "File meta information Json-Schema",
+  "type": "object",
+  "properties": {
+    "path": {
+      "type": "string",
+      "pattern": "^disk:/.*"
+    },
+    "type": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "modified": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "size": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "mime_type": {
+      "type": "string"
+    },
+    "md5": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{32}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "media_type": {
+      "type": "string"
+    },
+    "resource_id": {
+      "type": "string"
+    },
+    "revision": {
+      "type": "integer"
+    },
+    "comment_ids": {
+      "type": "object"
+    },
+    "exif": {
+      "type": "object"
+    },
+    "antivirus_status": {
+      "type": "string"
+    },
+    "file": {
+      "type": "string",
+      "format": "uri"
+    }
+  },
+  "required": [
+    "path",
+    "type",
+    "name",
+    "created",
+    "modified",
+    "size",
+    "mime_type",
+    "md5",
+    "sha256",
+    "media_type",
+    "resource_id",
+    "revision",
+    "comment_ids",
+    "exif",
+    "antivirus_status",
+    "file"
+  ],
+  "additionalProperties": false
+}

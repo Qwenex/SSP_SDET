@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "title": "FileInformation Schema",
+  "description": "Universal file meta information Json-Schema",
+  "type": "object",
+  "properties": {
+    "path": {
+      "type": "string",
+      "pattern": "^disk:/.*"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["file", "dir"]
+    },
+    "name": {
+      "type": "string"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "modified": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "size": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "mime_type": {
+      "type": "string"
+    },
+    "md5": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{32}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "antivirus_status": {
+      "type": "string"
+    },
+    "file": {
+      "type": "string",
+      "format": "uri"
+    },
+    "_embedded": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "path",
+    "type",
+    "name",
+    "created",
+    "modified",
+    "resource_id",
+    "revision"
+  ],
+  "additionalProperties": true
+}

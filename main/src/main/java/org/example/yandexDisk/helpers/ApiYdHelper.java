@@ -4,12 +4,14 @@ import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import org.awaitility.Awaitility;
 import org.example.utils.ReadProperty;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -191,5 +193,11 @@ public class ApiYdHelper {
                 .atMost(attemptsSeconds, TimeUnit.SECONDS)
                 .pollInterval(200, TimeUnit.MILLISECONDS)
                 .until(() -> isOperationCompleted(operationHref), equalTo(true));
+    }
+
+    @Step("Валидация Json Schema")
+    public JsonSchemaValidator matchJsonSchema(String schemaName) {
+        return JsonSchemaValidator.matchesJsonSchema(new File(
+                "src/test/resources/jsonSchemas/" + schemaName + ".json"));
     }
 }
